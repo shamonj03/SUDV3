@@ -4,7 +4,7 @@
 		"com.joe.game.model.component.Name": {
 			"name": "Wall"
 		},
-		"com.joe.game.model.component.WorldState": {
+		"com.joe.game.model.component.WorldSettings": {
 		},
 		"com.joe.game.model.component.MapView": {
 			"view": [

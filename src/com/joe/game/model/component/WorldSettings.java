@@ -3,11 +3,11 @@ package com.joe.game.model.component;
 import com.joe.game.model.Component;
 
 /**
- * A class to define something's state in the world.
+ * A class to define something's settings in the world.
  * Defines whether or not it can be interacted with,
  * moved through, or is visible on the map.
  */
-@DefinitionComponent public class WorldState extends Component {
+@DefinitionComponent public class WorldSettings extends Component {
 	/**
 	 * Set whether or not something else move through this.
 	 */
@@ -33,7 +33,7 @@ import com.joe.game.model.Component;
 	 * @param visible
 	 *            Set whether or not something else see this.
 	 */
-	public WorldState(boolean solid, boolean interactable, boolean visible) {
+	public WorldSettings(boolean solid, boolean interactable, boolean visible) {
 		this.solid = solid;
 		this.interactable = interactable;
 		this.visible = visible;
@@ -43,7 +43,7 @@ import com.joe.game.model.Component;
 	 * Default world state.
 	 * Is solid, cannot be interacted with, and is visible.
 	 */
-	public WorldState() {
+	public WorldSettings() {
 		this(true, false, true);
 	}
 

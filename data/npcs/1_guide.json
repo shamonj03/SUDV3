@@ -4,7 +4,7 @@
 		"com.joe.game.model.component.Name": {
 			"name": "Guide"
 		},
-		"com.joe.game.model.component.WorldState": {
+		"com.joe.game.model.component.WorldSettings": {
 			"solid": false,
 			"interactable": true
 		},

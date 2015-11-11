@@ -14,7 +14,7 @@ public final class Constants {
 	/**
 	 * The speed at which messages stream into view.
 	 */
-	public static final double MESSAGE_SPEED = FRAMES_TO_TICKS * 5;
+	public static final double MESSAGE_SPEED = FRAMES_TO_TICKS * 5.0;
 
 	private Constants() {
 		// Prevents instantiation.
