@@ -8,8 +8,20 @@ import com.joe.game.model.component.Position;
 import com.joe.game.model.entity.GameObject;
 import com.joe.game.model.entity.Npc;
 
+/**
+ * A factory to create entities.
+ */
 public class EntityFactory {
-
+	/**
+	 * Create a new Npc.
+	 * Fetches data for the Npc based on its id.
+	 * 
+	 * @param id
+	 *            The id given to Npcs of the same type.
+	 * @param position
+	 *            The position to register the entity to.
+	 * @return the Npc created.
+	 */
 	public static Npc createNpc(int id, Position position) {
 		Npc entity = new Npc(id);
 		Data data = Game.getNpcFetcher().fetch(id);
@@ -21,7 +33,17 @@ public class EntityFactory {
 		entity.register(position);
 		return entity;
 	}
-
+	
+	/**
+	 * Create a new GameObject.
+	 * Fetches data for the GameObject based on its id.
+	 * 
+	 * @param id
+	 *            The id given to GameObjects of the same type.
+	 * @param position
+	 *            The position to register the entity to.
+	 * @return the GameObject created.
+	 */
 	public static GameObject createGameObject(int id, Position position) {
 		GameObject entity = new GameObject(id);
 		Data data = Game.getObjectFetcher().fetch(id);
