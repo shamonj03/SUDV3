@@ -2,7 +2,7 @@ package com.joe.game.model;
 
 import java.util.UUID;
 
-import com.joe.game.model.control.ComponentComponent;
+import com.joe.game.control.ComponentComponent;
 
 /**
  * An entity that is made up of components.

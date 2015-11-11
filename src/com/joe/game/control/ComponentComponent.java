@@ -1,4 +1,4 @@
-package com.joe.game.model.control;
+package com.joe.game.control;
 
 import java.util.HashMap;
 import java.util.NoSuchElementException;

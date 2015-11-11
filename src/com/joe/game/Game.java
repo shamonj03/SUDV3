@@ -1,8 +1,8 @@
 package com.joe.game;
 
+import com.joe.game.control.EntityFactory;
 import com.joe.game.io.OnDemandFetcher;
 import com.joe.game.model.component.Position;
-import com.joe.game.model.control.EntityFactory;
 import com.joe.game.model.entity.Npc;
 
 public class Game {

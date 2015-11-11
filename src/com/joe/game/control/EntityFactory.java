@@ -1,4 +1,4 @@
-package com.joe.game.model.control;
+package com.joe.game.control;
 
 import com.joe.game.Game;
 import com.joe.game.io.Data;
