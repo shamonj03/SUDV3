@@ -1,0 +1,16 @@
+{
+	"id": 0,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Floor"
+		},
+		"com.joe.game.model.component.WorldState": {
+			"solid": false
+		},
+		"com.joe.game.model.component.MapView": {
+			"view": [
+				[ " "]
+			]
+		}
+	}
+}

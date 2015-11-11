@@ -1,0 +1,31 @@
+{
+	"id": 0,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Test Npc"
+		},
+		"com.joe.game.model.component.WorldState": {
+			"solid": false,
+			"interactable": true
+		},
+		"com.joe.game.model.component.MapView": {
+			"view": [
+				[ "t"]
+			]
+		},
+		"com.joe.game.model.component.Health": {
+			"health": 9000
+		}
+	}
+}
+{
+	"id": 1,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "test"
+		},
+		"com.joe.game.model.component.Health": {
+			"health": 10
+		}
+	}
+}

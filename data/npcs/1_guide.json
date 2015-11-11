@@ -1,0 +1,20 @@
+{
+	"id": 1,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Guide"
+		},
+		"com.joe.game.model.component.WorldState": {
+			"solid": false,
+			"interactable": true
+		},
+		"com.joe.game.model.component.MapView": {
+			"view": [
+				[ "G"]
+			]
+		},
+		"com.joe.game.model.component.Health": {
+			"health": 9000
+		}
+	}
+}

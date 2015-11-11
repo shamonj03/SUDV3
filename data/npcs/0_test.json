@@ -1,0 +1,21 @@
+{
+	"id": 0,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Test Npc"
+		},
+		"com.joe.game.model.component.WorldState": {
+			"solid": false,
+			"interactable": true
+		},
+		"com.joe.game.model.component.MapView": {
+			"view": [
+				[ "T" ]
+			]
+		},
+		"com.joe.game.model.component.Dimensions": {
+			"width": 2,
+			"height": 3
+		}
+	}
+}
