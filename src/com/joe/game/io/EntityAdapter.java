@@ -11,7 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import com.joe.game.model.Component;
-import com.joe.game.model.component.DefinitionModuel;
+import com.joe.game.model.component.DefinitionComponent;
 
 public class EntityAdapter implements JsonDeserializer<Data> {
 
@@ -41,7 +41,7 @@ public class EntityAdapter implements JsonDeserializer<Data> {
 				@SuppressWarnings("unchecked")
 				Class<? extends Component> cz = (Class<? extends Component>) Class.forName(entry.getKey());
 
-				if (cz.isAnnotationPresent(DefinitionModuel.class)) {
+				if (cz.isAnnotationPresent(DefinitionComponent.class)) {
 					data.getComponents().put(cz, ctx.deserialize(test, cz));
 				} else {
 					throw new UnsupportedOperationException(cz

@@ -7,7 +7,7 @@ import com.joe.game.model.Component;
  * Defines whether or not it can be interacted with,
  * moved through, or is visible on the map.
  */
-@DefinitionModuel public class WorldState extends Component {
+@DefinitionComponent public class WorldState extends Component {
 	/**
 	 * Set whether or not something else move through this.
 	 */

@@ -8,6 +8,6 @@ import java.lang.annotation.RetentionPolicy;
  * Components such as position that are different for the parent containing the
  * component are not valid in the definition.
  */
-@Retention(RetentionPolicy.RUNTIME) public @interface DefinitionModuel {
+@Retention(RetentionPolicy.RUNTIME) public @interface DefinitionComponent {
 
 }

@@ -5,7 +5,7 @@ import com.joe.game.model.Component;
 /**
  * A health component given to a entity.
  */
-@DefinitionModuel public class Health extends Component {
+@DefinitionComponent public class Health extends Component {
 
 	/**
 	 * The amount of health something has.

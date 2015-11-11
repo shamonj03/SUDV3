@@ -5,7 +5,7 @@ import com.joe.game.model.Component;
 /**
  * A name component used for identifying something.
  */
-@DefinitionModuel public class Name extends Component {
+@DefinitionComponent public class Name extends Component {
 
 	/**
 	 * The name of the thing.

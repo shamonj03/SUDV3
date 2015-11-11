@@ -5,7 +5,7 @@ import com.joe.game.model.Component;
 /**
  * A dimension class for defining how much 2D space something uses.
  */
-@DefinitionModuel public class Dimensions extends Component {
+@DefinitionComponent public class Dimensions extends Component {
 
 	/**
 	 * Width of the object.
