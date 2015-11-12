@@ -8,6 +8,7 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonStreamParser;
+import com.joe.game.io.data.ComponentData;
 
 public class OnDemandFetcher {
 
@@ -39,12 +40,12 @@ public class OnDemandFetcher {
 	 * 
 	 * @return data for the unique id.
 	 */
-	public Data fetch(int id) {
-		Data data = null;
+	public ComponentData fetch(int id) {
+		ComponentData data = null;
 
 		GsonBuilder builder = new GsonBuilder();
 		builder = new GsonBuilder();
-		builder.registerTypeAdapter(Data.class, new EntityAdapter());
+		builder.registerTypeAdapter(ComponentData.class, new EntityAdapter());
 		Gson gson = builder.create();
 
 		populateFileMap();
@@ -53,7 +54,7 @@ public class OnDemandFetcher {
 			File file = fileMap.get(id);
 			JsonStreamParser parser;
 			parser = new JsonStreamParser(new FileReader(file));
-			data = gson.fromJson(parser.next(), Data.class);
+			data = gson.fromJson(parser.next(), ComponentData.class);
 			return data;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

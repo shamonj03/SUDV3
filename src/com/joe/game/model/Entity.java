@@ -2,13 +2,13 @@ package com.joe.game.model;
 
 import java.util.UUID;
 
-import com.joe.game.control.ComponentComponent;
+import com.joe.game.control.ComponentController;
 
 /**
  * An entity that is made up of components.
  * An entity is anything in the game that makes up the world.
  */
-public abstract class Entity extends ComponentComponent {
+public abstract class Entity extends ComponentController {
 
 	/**
 	 * Unique randomized Id give to an entity to distinguish them

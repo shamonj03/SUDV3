@@ -10,16 +10,17 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import com.joe.game.io.data.ComponentData;
 import com.joe.game.model.Component;
 import com.joe.game.model.component.DefinitionComponent;
 
-public class EntityAdapter implements JsonDeserializer<Data> {
+public class EntityAdapter implements JsonDeserializer<ComponentData> {
 
-	@Override public Data deserialize(JsonElement element, Type t, JsonDeserializationContext ctx)
+	@Override public ComponentData deserialize(JsonElement element, Type t, JsonDeserializationContext ctx)
 			throws JsonParseException {
 		int id = element.getAsJsonObject().get("id").getAsInt();
 
-		Data data = new Data(id);
+		ComponentData data = new ComponentData(id);
 		loadComponents(element, data, ctx);
 		return data;
 	}
@@ -28,7 +29,7 @@ public class EntityAdapter implements JsonDeserializer<Data> {
 	 * Parse the data components for the class name and register them to the
 	 * Data class.
 	 */
-	private void loadComponents(JsonElement e, Data data, JsonDeserializationContext ctx) {
+	private void loadComponents(JsonElement e, ComponentData data, JsonDeserializationContext ctx) {
 		JsonElement comps = e.getAsJsonObject().get("components");
 		Gson gson = new Gson();
 		Type stringStringMap = new TypeToken<Map<String, JsonElement>>() {

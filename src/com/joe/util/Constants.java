@@ -1,5 +1,7 @@
 package com.joe.util;
 
+import java.awt.Color;
+
 public final class Constants {
 	/**
 	 * Target FPS to run at.
@@ -16,7 +18,18 @@ public final class Constants {
 	 */
 	public static final double MESSAGE_SPEED = FRAMES_TO_TICKS * 5.0;
 
+	/**
+	 * The color of the GUI's font. Borders also match this color.
+	 */
+	public static final Color FONT_COLOR = Color.RED;
+
+	/**
+	 * The color of the GUIs background.
+	 */
+	public static final Color BG_COLOR = Color.BLACK;
+
 	private Constants() {
 		// Prevents instantiation.
+		throw new UnsupportedOperationException("Instantion not allowed here.");
 	}
 }

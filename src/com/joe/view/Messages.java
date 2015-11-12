@@ -1,8 +1,12 @@
 package com.joe.view;
 
+/**
+ * A class containing messages used throughout the game.
+ */
 public class Messages {
-
 	/**
+	 * An example message.
+	 * 
 	 * @return The greeting message
 	 */
 	public static String greetingMessage() {
@@ -30,5 +34,10 @@ public class Messages {
 			}
 		}
 		return message;
+	}
+	
+	private Messages() {
+		// Prevents instantiation.
+		throw new UnsupportedOperationException("Instantion not allowed here.");
 	}
 }

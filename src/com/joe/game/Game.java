@@ -1,15 +1,16 @@
 package com.joe.game;
 
 import com.joe.game.control.EntityFactory;
+import com.joe.game.control.EventController;
 import com.joe.game.io.OnDemandFetcher;
 import com.joe.game.model.component.Position;
 import com.joe.game.model.entity.Npc;
+import com.joe.game.model.event.MessageEvent;
 import com.joe.util.Constants;
-import com.joe.util.MessageUtil;
-import com.joe.view.Messages;
+import com.joe.view.DefaultMessageEncoder;
+import com.joe.view.MessageEncoder;
 
 public class Game implements Runnable {
-
 	/**
 	 * Fetches npc data when needed.
 	 */
@@ -19,6 +20,21 @@ public class Game implements Runnable {
 	 * Fetches object data when needed.
 	 */
 	private static final OnDemandFetcher objectFetcher = new OnDemandFetcher("./data/objects/");
+
+	/**
+	 * This message encoder handles printing of game messages.
+	 */
+	private static MessageEncoder gameMessageEncoder = new DefaultMessageEncoder();
+
+	/**
+	 * This message encoder handles printing to the map.
+	 */
+	private static MessageEncoder mapMessageEncoder = new DefaultMessageEncoder();
+
+	/**
+	 * This message encoder handles printing of the menus.
+	 */
+	private static MessageEncoder menuMessageEncoder = new DefaultMessageEncoder();
 
 	/**
 	 * The thread the game is running on.
@@ -41,8 +57,10 @@ public class Game implements Runnable {
 	public void initialize() {
 		Npc npc = EntityFactory.createNpc(0, new Position(1, 1));
 		Npc npc2 = EntityFactory.createNpc(1, new Position(3, 3));
-		System.out.println(npc);
-		System.out.println(npc2);
+		gameMessageEncoder.printLine(npc);
+		gameMessageEncoder.printLine(npc2);
+
+		EventController.sendEvent(new MessageEvent("Testing 123 lol hi"));
 	}
 
 	/**
@@ -59,9 +77,8 @@ public class Game implements Runnable {
 	 * Update the game every game tick.
 	 */
 	public void update() {
-		MessageUtil.stream(Messages.greetingMessage());
+		EventController.handleEvents();
 	}
-
 
 	@Override public void run() {
 		setRunning(true);
@@ -161,6 +178,36 @@ public class Game implements Runnable {
 	}
 
 	/**
+	 * Sets the message encoder handles printing of the game messages.
+	 * 
+	 * @param gameMessageEncoder
+	 *            The encoder to use.
+	 */
+	public static void setGameMessageEncoder(MessageEncoder gameMessageEncoder) {
+		Game.gameMessageEncoder = gameMessageEncoder;
+	}
+
+	/**
+	 * Sets the message encoder handles printing to the map.
+	 * 
+	 * @param mapMessageEncoder
+	 *            The encoder to use.
+	 */
+	public static void setMapMessageEncoder(MessageEncoder mapMessageEncoder) {
+		Game.mapMessageEncoder = mapMessageEncoder;
+	}
+
+	/**
+	 * Sets the message encoder handles printing of the menus.
+	 * 
+	 * @param menuMessageEncoder
+	 *            The encoder to use.
+	 */
+	public static void setMenuMessageEncoder(MessageEncoder menuMessageEncoder) {
+		Game.menuMessageEncoder = menuMessageEncoder;
+	}
+
+	/**
 	 * Pause the game thread.
 	 * 
 	 * @param paused
@@ -206,6 +253,27 @@ public class Game implements Runnable {
 	 */
 	public boolean isRunning() {
 		return running;
+	}
+
+	/**
+	 * @retrn The message encoder handles printing of game messages.
+	 */
+	public static MessageEncoder getGameMessageEncoder() {
+		return gameMessageEncoder;
+	}
+
+	/**
+	 * @return The message encoder handles printing to the map.
+	 */
+	public static MessageEncoder getMapMessageEncoder() {
+		return mapMessageEncoder;
+	}
+
+	/**
+	 * @return The message encoder handles printing of the menus.
+	 */
+	public static MessageEncoder getMenuMessageEncoder() {
+		return menuMessageEncoder;
 	}
 
 }

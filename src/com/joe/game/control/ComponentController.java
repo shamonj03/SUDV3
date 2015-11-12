@@ -8,7 +8,7 @@ import com.joe.game.model.Component;
 /**
  * Controls the components of the parent.
  */
-public class ComponentComponent {
+public class ComponentController {
 
 	/**
 	 * The components registered to the parent.
