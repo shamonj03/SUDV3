@@ -24,7 +24,7 @@ public class EntityFactory {
 	 */
 	public static Npc createNpc(int id, Position position) {
 		Npc entity = new Npc(id);
-		ComponentData data = Game.getNpcFetcher().fetch(id);
+		ComponentData data = DataManager.getNpcFetcher().fetch(id);
 
 		entity.register(new Dimensions(1, 1));
 		for (Component component : data.getComponents().values()) {
@@ -46,7 +46,7 @@ public class EntityFactory {
 	 */
 	public static GameObject createGameObject(int id, Position position) {
 		GameObject entity = new GameObject(id);
-		ComponentData data = Game.getObjectFetcher().fetch(id);
+		ComponentData data = DataManager.getObjectFetcher().fetch(id);
 
 		entity.register(new Dimensions(1, 1));
 		for (Component component : data.getComponents().values()) {

@@ -1,4 +1,4 @@
-package com.joe.game.io;
+package com.joe.game.io.data;
 
 public class Data {
 	/**

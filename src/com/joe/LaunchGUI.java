@@ -8,6 +8,6 @@ public class LaunchGUI {
 		// Start the game with a gui.
 		SUDGui gui = new SUDGui();
 		gui.display();
-		gui.start();
+		gui.startGame();
 	}
 }

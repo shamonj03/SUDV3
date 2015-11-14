@@ -9,21 +9,21 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonStreamParser;
 import com.google.gson.JsonSyntaxException;
-import com.joe.game.io.data.ZoneData;
+import com.joe.game.io.data.Data;
 
-public class ZoneDataFetcher {
-	
-	private static HashMap<Integer, ZoneData> dataMap = new HashMap<>();
+public class CachedDefinition<T extends Data> {
 
-	private static void load(int id) {
+	private HashMap<Integer, T> dataMap = new HashMap<>();
+
+	public CachedDefinition(String path, Class<T> type) {
 		try {
-			File file = new File("./data/zones/"+id+".json");
+			File file = new File(path);
 
 			Gson g = new Gson();
 
 			JsonStreamParser parser = new JsonStreamParser(new FileReader(file));
 			while (parser.hasNext()) {
-				ZoneData data = g.fromJson(parser.next(), ZoneData.class);
+				T data = g.fromJson(parser.next(), type);
 				dataMap.put(data.getId(), data);
 			}
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
@@ -31,10 +31,7 @@ public class ZoneDataFetcher {
 		}
 	}
 
-	public static ZoneData forId(int id) {
-		if(!dataMap.containsKey(id)) {
-			load(id);
-		}
-		return dataMap.get(id);
+	public T forId(int id) {
+		return (T) dataMap.get(id);
 	}
 }

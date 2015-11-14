@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonStreamParser;
 import com.joe.game.io.data.ComponentData;
 
-public class OnDemandFetcher {
+public class OnDemandDataFetcher {
 
 	/**
 	 * Maps of the unique id of the data file to the file object.
@@ -28,7 +28,7 @@ public class OnDemandFetcher {
 	 * @param folderPath
 	 *            Folder containing the data.
 	 */
-	public OnDemandFetcher(String folderPath) {
+	public OnDemandDataFetcher(String folderPath) {
 		this.folderPath = folderPath;
 	}
 
@@ -45,7 +45,7 @@ public class OnDemandFetcher {
 
 		GsonBuilder builder = new GsonBuilder();
 		builder = new GsonBuilder();
-		builder.registerTypeAdapter(ComponentData.class, new EntityAdapter());
+		builder.registerTypeAdapter(ComponentData.class, new DataComponentAdapter());
 		Gson gson = builder.create();
 
 		populateFileMap();

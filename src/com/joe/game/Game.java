@@ -2,25 +2,16 @@ package com.joe.game;
 
 import com.joe.game.control.EntityFactory;
 import com.joe.game.control.EventController;
-import com.joe.game.io.OnDemandFetcher;
+import com.joe.game.io.OnDemandDataFetcher;
+import com.joe.game.model.Item;
+import com.joe.game.model.ItemContainer;
 import com.joe.game.model.component.Position;
 import com.joe.game.model.entity.Npc;
 import com.joe.game.model.event.MessageEvent;
-import com.joe.util.Constants;
 import com.joe.view.DefaultMessageEncoder;
 import com.joe.view.MessageEncoder;
 
-public class Game implements Runnable {
-	/**
-	 * Fetches npc data when needed.
-	 */
-	private static final OnDemandFetcher npcFethcer = new OnDemandFetcher("./data/npcs/");
-
-	/**
-	 * Fetches object data when needed.
-	 */
-	private static final OnDemandFetcher objectFetcher = new OnDemandFetcher("./data/objects/");
-
+public class Game extends GameThread {
 	/**
 	 * This message encoder handles printing of game messages.
 	 */
@@ -37,21 +28,6 @@ public class Game implements Runnable {
 	private static MessageEncoder menuMessageEncoder = new DefaultMessageEncoder();
 
 	/**
-	 * The thread the game is running on.
-	 */
-	private Thread gameThread;
-
-	/**
-	 * Boolean used to terminate game thread.
-	 */
-	private boolean running;
-
-	/**
-	 * Boolean to pause the game thread.
-	 */
-	private boolean paused = false;
-
-	/**
 	 * Initialize any pregame data.
 	 */
 	public void initialize() {
@@ -61,120 +37,39 @@ public class Game implements Runnable {
 		gameMessageEncoder.printLine(npc2);
 
 		EventController.sendEvent(new MessageEvent("Testing 123 lol hi"));
+		
+		ItemContainer inventory = new ItemContainer(28);
+
+		System.out.println(inventory.addItem(1, 1));
+		System.out.println(inventory.remove(1, 50));
+		System.out.println(inventory.addItem(1, 200));
+		System.out.println(inventory.remove(1, 50));
+		
+		System.out.println(inventory.addItem(0, 2));
+		System.out.println(inventory.remove(0, 2));
+		System.out.println(inventory.addItem(0, 5));
+		System.out.println(inventory.remove(0, 3));
+
+		for(int i = 0; i < inventory.getSize(); i++) {
+			Item item = inventory.getItem(i);
+			System.out.println(i + " " + item.getData().getName() + " " + item.getAmount());
+		}
 	}
 
 	/**
-	 * Start the main game loop.
+	 * Start the game.
 	 */
-	public void start() {
+	public void startGame() {
 		initialize();
 
-		gameThread = new Thread(this, "GameThread");
-		gameThread.start();
+		startGameThread();
 	}
 
 	/**
 	 * Update the game every game tick.
 	 */
-	public void update() {
+	@Override public void onTick() {
 		EventController.handleEvents();
-	}
-
-	@Override public void run() {
-		setRunning(true);
-
-		gameLoop();
-	}
-
-	/**
-	 * I use Eli's game loop for just about everything.
-	 * 
-	 * @author Eli Delventhal {@link http
-	 *         ://www.java-gaming.org/index.php?topic=24220.0}
-	 * 
-	 */
-	private synchronized void gameLoop() {
-		// This value would probably be stored elsewhere.
-		final double GAME_HERTZ = 60.0;
-		// Calculate how many ns each frame should take for our target game
-		// hertz.
-		final double TIME_BETWEEN_UPDATES = 1000000000 / GAME_HERTZ;
-		// At the very most we will update the game this many times before a new
-		// render.
-		// If you're worried about visual hitches more than perfect timing, set
-		// this to 1.
-		final int MAX_UPDATES_BEFORE_RENDER = 5;
-		// We will need the last update time.
-		double lastUpdateTime = System.nanoTime();
-		// Store the last time we rendered.
-		double lastRenderTime = System.nanoTime();
-
-		// If we are able to get as high as this FPS, don't render again.
-		final double TARGET_TIME_BETWEEN_RENDERS = 1000000000 / Constants.TARGET_FPS;
-
-		// Simple way of finding FPS.
-		int lastSecondTime = (int) (lastUpdateTime / 1000000000);
-
-		while (isRunning()) {
-			double now = System.nanoTime();
-			int updateCount = 0;
-
-			if (!isPaused()) {
-				// Do as many game updates as we need to, potentially playing
-				// catchup.
-				while (now - lastUpdateTime > TIME_BETWEEN_UPDATES && updateCount < MAX_UPDATES_BEFORE_RENDER) {
-					update();
-
-					lastUpdateTime += TIME_BETWEEN_UPDATES;
-					updateCount++;
-				}
-
-				// If for some reason an update takes forever, we don't want to
-				// do an insane number of catchups.
-				// If you were doing some sort of game that needed to keep EXACT
-				// time, you would get rid of this.
-				if (now - lastUpdateTime > TIME_BETWEEN_UPDATES) {
-					lastUpdateTime = now - TIME_BETWEEN_UPDATES;
-				}
-
-				// Render. To do so, we need to calculate interpolation for a smooth render.
-				// This is only needed for graphical games.
-				/*interpolation = Math
-						.min(1.0f,
-								(float) ((now - lastUpdateTime) / TIME_BETWEEN_UPDATES));
-
-				processGraphics();*/
-
-				lastRenderTime = now;
-
-				// Update the frames we got.
-				int thisSecond = (int) (lastUpdateTime / 1000000000);
-				if (thisSecond > lastSecondTime) {
-					lastSecondTime = thisSecond;
-				}
-
-				// Yield until it has been at least the target time between
-				// renders. This saves the CPU from hogging.
-				while (now - lastRenderTime < TARGET_TIME_BETWEEN_RENDERS
-						&& now - lastUpdateTime < TIME_BETWEEN_UPDATES) {
-					Thread.yield();
-
-					// This stops the app from consuming all your CPU. It makes
-					// this slightly less accurate, but is worth it.
-					// You can remove this line and it will still work (better),
-					// your CPU just climbs on certain OSes.
-					// FYI on some OS's this can cause pretty bad stuttering.
-					// Scroll down and have a look at different peoples'
-					// solutions to this.
-					try {
-						Thread.sleep(1);
-					} catch (Exception e) {
-					}
-
-					now = System.nanoTime();
-				}
-			}
-		}
 	}
 
 	/**
@@ -205,54 +100,6 @@ public class Game implements Runnable {
 	 */
 	public static void setMenuMessageEncoder(MessageEncoder menuMessageEncoder) {
 		Game.menuMessageEncoder = menuMessageEncoder;
-	}
-
-	/**
-	 * Pause the game thread.
-	 * 
-	 * @param paused
-	 *            True to pause the game.
-	 */
-	public void setPaused(boolean paused) {
-		this.paused = paused;
-	}
-
-	/**
-	 * Change the state of the game thread.
-	 * 
-	 * @param running
-	 *            False to terminate game.
-	 */
-	public void setRunning(boolean running) {
-		this.running = running;
-	}
-
-	/**
-	 * @return the onDemand fetcher for npc data.
-	 */
-	public static OnDemandFetcher getNpcFetcher() {
-		return npcFethcer;
-	}
-
-	/**
-	 * @return the onDemand fetcher for object data.
-	 */
-	public static OnDemandFetcher getObjectFetcher() {
-		return objectFetcher;
-	}
-
-	/**
-	 * @return whether or not the game thread is paused.
-	 */
-	public boolean isPaused() {
-		return paused;
-	}
-
-	/**
-	 * @return whether or not the game thread is running.
-	 */
-	public boolean isRunning() {
-		return running;
 	}
 
 	/**

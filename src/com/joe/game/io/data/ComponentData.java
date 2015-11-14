@@ -2,7 +2,6 @@ package com.joe.game.io.data;
 
 import java.util.HashMap;
 
-import com.joe.game.io.Data;
 import com.joe.game.model.Component;
 
 public class ComponentData extends Data {

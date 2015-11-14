@@ -14,7 +14,7 @@ import com.joe.game.io.data.ComponentData;
 import com.joe.game.model.Component;
 import com.joe.game.model.component.DefinitionComponent;
 
-public class EntityAdapter implements JsonDeserializer<ComponentData> {
+public class DataComponentAdapter implements JsonDeserializer<ComponentData> {
 
 	@Override public ComponentData deserialize(JsonElement element, Type t, JsonDeserializationContext ctx)
 			throws JsonParseException {
