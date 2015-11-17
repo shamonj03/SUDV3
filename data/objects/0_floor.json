@@ -6,11 +6,6 @@
 		},
 		"com.joe.game.model.component.WorldSettings": {
 			"solid": false
-		},
-		"com.joe.game.model.component.MapView": {
-			"view": [
-				[ " "]
-			]
 		}
 	}
 }

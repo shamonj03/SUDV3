@@ -9,27 +9,31 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonStreamParser;
 import com.joe.game.io.data.ComponentData;
+import com.joe.game.io.data.Data;
 
-public class OnDemandDataFetcher {
+public class OnDemandDataFetcher<T extends Data> {
 
 	/**
 	 * Maps of the unique id of the data file to the file object.
 	 */
-	private HashMap<Integer, File> fileMap;
+	protected HashMap<Integer, File> fileMap;
 
 	/**
 	 * Folder containing the data.
 	 */
-	private String folderPath;
+	protected String folderPath;
 
+	protected Class<T> type;
+	
 	/**
 	 * Create a new fetcher that pulls data from a specified file in the folder.
 	 * 
 	 * @param folderPath
 	 *            Folder containing the data.
 	 */
-	public OnDemandDataFetcher(String folderPath) {
+	public OnDemandDataFetcher(String folderPath, Class<T> type) {
 		this.folderPath = folderPath;
+		this.type = type;
 	}
 
 	/**
@@ -40,12 +44,10 @@ public class OnDemandDataFetcher {
 	 * 
 	 * @return data for the unique id.
 	 */
-	public ComponentData fetch(int id) {
-		ComponentData data = null;
+	public T fetch(int id) {
+		T data = null;
 
 		GsonBuilder builder = new GsonBuilder();
-		builder = new GsonBuilder();
-		builder.registerTypeAdapter(ComponentData.class, new DataComponentAdapter());
 		Gson gson = builder.create();
 
 		populateFileMap();
@@ -54,7 +56,7 @@ public class OnDemandDataFetcher {
 			File file = fileMap.get(id);
 			JsonStreamParser parser;
 			parser = new JsonStreamParser(new FileReader(file));
-			data = gson.fromJson(parser.next(), ComponentData.class);
+			data = gson.fromJson(parser.next(), type);
 			return data;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -68,7 +70,7 @@ public class OnDemandDataFetcher {
 	 * 
 	 * File Name Format: index_fileName.json
 	 */
-	private void populateFileMap() {
+	protected void populateFileMap() {
 		if (fileMap == null) {
 			fileMap = new HashMap<>();
 
@@ -86,12 +88,5 @@ public class OnDemandDataFetcher {
 				}
 			}
 		}
-	}
-
-	/**
-	 * @returnGet the folder of the data path.
-	 */
-	public String getFolder() {
-		return folderPath;
 	}
 }

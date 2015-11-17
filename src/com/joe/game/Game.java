@@ -1,10 +1,12 @@
 package com.joe.game;
 
-import com.joe.game.control.EntityFactory;
-import com.joe.game.control.EventController;
-import com.joe.game.io.OnDemandDataFetcher;
+import com.joe.game.control.entity.EntityFactory;
+import com.joe.game.control.event.EventController;
+import com.joe.game.io.OnDemandComponentDataFetcher;
+import com.joe.game.io.ScriptManager;
 import com.joe.game.model.Item;
 import com.joe.game.model.ItemContainer;
+import com.joe.game.model.Zone;
 import com.joe.game.model.component.Position;
 import com.joe.game.model.entity.Npc;
 import com.joe.game.model.event.MessageEvent;
@@ -31,29 +33,7 @@ public class Game extends GameThread {
 	 * Initialize any pregame data.
 	 */
 	public void initialize() {
-		Npc npc = EntityFactory.createNpc(0, new Position(1, 1));
-		Npc npc2 = EntityFactory.createNpc(1, new Position(3, 3));
-		gameMessageEncoder.printLine(npc);
-		gameMessageEncoder.printLine(npc2);
-
-		EventController.sendEvent(new MessageEvent("Testing 123 lol hi"));
-		
-		ItemContainer inventory = new ItemContainer(28);
-
-		System.out.println(inventory.addItem(1, 1));
-		System.out.println(inventory.remove(1, 50));
-		System.out.println(inventory.addItem(1, 200));
-		System.out.println(inventory.remove(1, 50));
-		
-		System.out.println(inventory.addItem(0, 2));
-		System.out.println(inventory.remove(0, 2));
-		System.out.println(inventory.addItem(0, 5));
-		System.out.println(inventory.remove(0, 3));
-
-		for(int i = 0; i < inventory.getSize(); i++) {
-			Item item = inventory.getItem(i);
-			System.out.println(i + " " + item.getData().getName() + " " + item.getAmount());
-		}
+		ScriptManager.loadScripts();
 	}
 
 	/**
@@ -63,6 +43,10 @@ public class Game extends GameThread {
 		initialize();
 
 		startGameThread();
+		
+		Zone zone = new Zone(0);
+		zone.initializeMap();
+		zone.printZone();
 	}
 
 	/**
@@ -78,7 +62,7 @@ public class Game extends GameThread {
 	 * @param gameMessageEncoder
 	 *            The encoder to use.
 	 */
-	public static void setGameMessageEncoder(MessageEncoder gameMessageEncoder) {
+	protected static void setGameMessageEncoder(MessageEncoder gameMessageEncoder) {
 		Game.gameMessageEncoder = gameMessageEncoder;
 	}
 
@@ -88,7 +72,7 @@ public class Game extends GameThread {
 	 * @param mapMessageEncoder
 	 *            The encoder to use.
 	 */
-	public static void setMapMessageEncoder(MessageEncoder mapMessageEncoder) {
+	protected static void setMapMessageEncoder(MessageEncoder mapMessageEncoder) {
 		Game.mapMessageEncoder = mapMessageEncoder;
 	}
 
@@ -98,7 +82,7 @@ public class Game extends GameThread {
 	 * @param menuMessageEncoder
 	 *            The encoder to use.
 	 */
-	public static void setMenuMessageEncoder(MessageEncoder menuMessageEncoder) {
+	protected static void setMenuMessageEncoder(MessageEncoder menuMessageEncoder) {
 		Game.menuMessageEncoder = menuMessageEncoder;
 	}
 

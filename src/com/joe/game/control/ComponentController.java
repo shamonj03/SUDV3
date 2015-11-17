@@ -9,7 +9,6 @@ import com.joe.game.model.Component;
  * Controls the components of the parent.
  */
 public class ComponentController {
-
 	/**
 	 * The components registered to the parent.
 	 * K: Component.class
@@ -48,10 +47,14 @@ public class ComponentController {
 	 * @return the component if it's there, other wise throw NoSuchElementException.
 	 */
 	@SuppressWarnings("unchecked") public <T extends Component> T getComponent(Class<T> componentClass) {
-		if (!components.containsKey(componentClass)) {
+		if (!containsComponent(componentClass)) {
 			throw new NoSuchElementException("No component registered to " + componentClass + ".");
 		}
 		return (T) components.get(componentClass);
+	}
+	
+	public <T extends Component> boolean containsComponent(Class<T> componentClass) {
+		return components.containsKey(componentClass);
 	}
 
 	@Override public String toString() {

@@ -7,7 +7,7 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import com.joe.game.control.EventController;
+import com.joe.game.control.event.EventController;
 import com.joe.util.Constants;
 import com.joe.game.model.event.InputEvent;
 

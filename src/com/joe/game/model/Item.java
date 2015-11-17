@@ -1,6 +1,6 @@
 package com.joe.game.model;
 
-import com.joe.game.control.DataManager;
+import com.joe.game.io.DataManager;
 import com.joe.game.io.data.ItemData;
 
 public class Item {

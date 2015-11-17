@@ -7,7 +7,7 @@ import com.joe.game.model.Component;
 	/**
 	 * The 2D array of the aerial view something has on the map.
 	 */
-	private String[][] view;
+	private char[][] view;
 
 	/**
 	 * Create a new MapView component.
@@ -15,15 +15,30 @@ import com.joe.game.model.Component;
 	 * @param view
 	 *            The 2D array of the aerial view something has on the map.
 	 */
-	public MapView(String[][] view) {
+	public MapView(char[][] view) {
 		this.view = view;
+	}
+
+	/**
+	 * Default blank map view.
+	 */
+	public MapView() {
+		this.view = new char[][] { { ' ' } };
 	}
 
 	/**
 	 * @return The 2D array of the aerial view something has on the map.
 	 */
-	public String[][] getView() {
+	public char[][] getView() {
 		return view;
+	}
+
+	public int getWidth() {
+		return view[0].length;
+	}
+
+	public int getHeight() {
+		return view.length;
 	}
 
 	@Override public String toString() {

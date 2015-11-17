@@ -6,7 +6,6 @@ package com.joe.game.model;
  * Predefined in json file.
  */
 public abstract class DefinitionEntity extends Entity {
-
 	/**
 	 * The common id that is shared between all entities of the same type.
 	 */

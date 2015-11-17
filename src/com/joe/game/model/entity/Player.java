@@ -2,6 +2,7 @@ package com.joe.game.model.entity;
 
 import com.joe.game.model.Entity;
 import com.joe.game.model.EntityType;
+import com.joe.game.model.component.MapView;
 import com.joe.game.model.component.Name;
 import com.joe.game.model.component.Position;
 
@@ -18,6 +19,9 @@ public class Player extends Entity {
 	public Player() {
 		register(new Name("player"));
 		register(new Position(1, 2));
+		register(new MapView(new char[][] {
+				{ '@' }
+		}));
 	}
 
 	@Override public EntityType getType() {

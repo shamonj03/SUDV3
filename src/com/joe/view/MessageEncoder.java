@@ -61,4 +61,13 @@ public interface MessageEncoder {
 	public default void printLine() {
 		printLine("");
 	}
+	
+	public default void printFormat(String text, Object... args) {
+		print(String.format(text, args));
+	}
+	
+	public default void printFormatLine(String text, Object... args) {
+		printFormat(text, args);
+		printLine();
+	}
 }

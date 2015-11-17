@@ -8,7 +8,7 @@
 		},
 		"com.joe.game.model.component.MapView": {
 			"view": [
-				[ "x"]
+				[ 'x']
 			]
 		}
 	}
