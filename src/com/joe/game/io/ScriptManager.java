@@ -1,14 +1,8 @@
 package com.joe.game.io;
 
 import java.io.File;
-import java.io.FileReader;
-import java.util.HashMap;
 
-import org.python.core.Py;
-import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
-
-import com.joe.game.model.Event;
 
 public class ScriptManager {
 

@@ -12,12 +12,14 @@ public class DataManager {
 	/**
 	 * Fetches object data when needed.
 	 */
-	private static final OnDemandComponentDataFetcher OBJECT_FETCHER = new OnDemandComponentDataFetcher("./data/objects/");
+	private static final OnDemandComponentDataFetcher OBJECT_FETCHER = new OnDemandComponentDataFetcher(
+			"./data/objects/");
 
 	/**
 	 * Fetches zone data when needed.
 	 */
-	private static final OnDemandDataFetcher<ZoneData> ZONE_FETCHER = new OnDemandDataFetcher<>("./data/zones/", ZoneData.class);
+	private static final OnDemandDataFetcher<ZoneData> ZONE_FETCHER = new OnDemandDataFetcher<>("./data/zones/",
+			ZoneData.class);
 
 	/**
 	 * Cache the all the items storing them by index.

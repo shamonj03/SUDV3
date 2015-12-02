@@ -8,7 +8,7 @@ public class Item {
 	/**
 	 * Id of item from the definition.
 	 */
-	private int id;
+	private final int id;
 
 	/**
 	 * Amount of item.

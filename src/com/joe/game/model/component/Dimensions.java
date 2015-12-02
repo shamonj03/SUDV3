@@ -1,6 +1,5 @@
 package com.joe.game.model.component;
 
-import com.joe.game.model.Component;
 
 /**
  * A dimension class for defining how much 2D space something uses.

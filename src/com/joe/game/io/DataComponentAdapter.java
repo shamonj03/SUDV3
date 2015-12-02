@@ -11,7 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import com.joe.game.io.data.ComponentData;
-import com.joe.game.model.Component;
+import com.joe.game.model.component.Component;
 import com.joe.game.model.component.DefinitionComponent;
 
 public class DataComponentAdapter implements JsonDeserializer<ComponentData> {

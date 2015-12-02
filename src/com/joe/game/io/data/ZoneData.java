@@ -1,6 +1,5 @@
 package com.joe.game.io.data;
 
-
 public class ZoneData extends Data {
 
 	private String name;

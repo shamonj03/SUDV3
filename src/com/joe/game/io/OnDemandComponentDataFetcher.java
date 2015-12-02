@@ -3,7 +3,6 @@ package com.joe.game.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +11,6 @@ import com.joe.game.io.data.ComponentData;
 
 public class OnDemandComponentDataFetcher extends OnDemandDataFetcher<ComponentData> {
 
-	
 	public OnDemandComponentDataFetcher(String folderPath) {
 		super(folderPath, ComponentData.class);
 	}
@@ -25,7 +23,7 @@ public class OnDemandComponentDataFetcher extends OnDemandDataFetcher<ComponentD
 	 * 
 	 * @return data for the unique id.
 	 */
-	@Override public ComponentData fetch(int id) {
+	@Override public ComponentData forId(int id) {
 		ComponentData data = null;
 
 		GsonBuilder builder = new GsonBuilder();

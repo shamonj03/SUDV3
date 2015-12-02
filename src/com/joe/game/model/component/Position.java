@@ -1,6 +1,5 @@
 package com.joe.game.model.component;
 
-import com.joe.game.model.Component;
 import com.joe.game.model.Direction;
 
 /**
@@ -12,7 +11,7 @@ public class Position extends Component {
 	 * Standard origin of (0, 0)
 	 */
 	public static final Position ORIGIN = new Position(0, 0);
-	
+
 	/**
 	 * The x component.
 	 */
@@ -44,7 +43,7 @@ public class Position extends Component {
 	public Position(Position other) {
 		set(other);
 	}
-
+	
 	/**
 	 * Default position at the standard origin (0, 0).
 	 */

@@ -2,7 +2,7 @@ package com.joe.game.model.entity;
 
 import com.joe.game.model.DefinitionEntity;
 import com.joe.game.model.EntityType;
-import com.joe.game.model.component.MapView;
+import com.joe.game.model.component.SimpleMapView;
 
 /**
  * A game object entity to distinguish its instance from other entities.
@@ -18,8 +18,8 @@ public class GameObject extends DefinitionEntity {
 	 */
 	public GameObject(int id) {
 		super(id);
-		
-		this.register(new MapView());
+
+		register(new SimpleMapView());
 	}
 
 	@Override public EntityType getType() {

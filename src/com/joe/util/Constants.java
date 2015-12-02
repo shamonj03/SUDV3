@@ -28,8 +28,13 @@ public final class Constants {
 	 */
 	public static final Color BG_COLOR = Color.BLACK;
 
+	/**
+	 * Adjacent tile offsets.
+	 */
+	public static final int[][] TILE_OFFSETS = { { -1, 0, }, { 0, -1 }, { 0, 0, }, { 1, 0 }, { 0, 1 } };
+
 	private Constants() {
 		// Prevents instantiation.
-		throw new UnsupportedOperationException("Instantion not allowed here.");
+		throw new UnsupportedOperationException("Instantiation not allowed here.");
 	}
 }

@@ -9,7 +9,7 @@ public abstract class DefinitionEntity extends Entity {
 	/**
 	 * The common id that is shared between all entities of the same type.
 	 */
-	private int globalId;
+	private int globalID;
 
 	/**
 	 * Creates a new entity.
@@ -19,14 +19,26 @@ public abstract class DefinitionEntity extends Entity {
 	 *            type.
 	 */
 	public DefinitionEntity(int globalId) {
-		this.globalId = globalId;
+		this.globalID = globalId;
 	}
 
 	/**
 	 * @return the common id that is shared between all entities of the same
 	 *         type.
 	 */
-	public int getGlobalId() {
-		return globalId;
+	public int getGlobalID() {
+		return globalID;
+	}
+
+	@Override public String toString() {
+		String s = "";
+		s = s + "Entity_" + getType() + "_" + getGlobalID() + ": " + getUniqueID() + "\n";
+
+		String[] lines = componentsToString().split("\\r?\\n");
+
+		for (String line : lines) {
+			s = s + "\t" + line + "\n";
+		}
+		return s;
 	}
 }

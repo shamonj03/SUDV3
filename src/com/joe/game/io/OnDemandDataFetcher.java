@@ -8,7 +8,6 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonStreamParser;
-import com.joe.game.io.data.ComponentData;
 import com.joe.game.io.data.Data;
 
 public class OnDemandDataFetcher<T extends Data> {
@@ -24,7 +23,7 @@ public class OnDemandDataFetcher<T extends Data> {
 	protected String folderPath;
 
 	protected Class<T> type;
-	
+
 	/**
 	 * Create a new fetcher that pulls data from a specified file in the folder.
 	 * 
@@ -44,7 +43,7 @@ public class OnDemandDataFetcher<T extends Data> {
 	 * 
 	 * @return data for the unique id.
 	 */
-	public T fetch(int id) {
+	public T forId(int id) {
 		T data = null;
 
 		GsonBuilder builder = new GsonBuilder();

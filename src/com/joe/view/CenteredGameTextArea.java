@@ -10,13 +10,12 @@ import javax.swing.text.StyledDocument;
 	 * Create a text area for the game where the text is centered.
 	 * 
 	 * @param width
-	 * 		Width of the text area.
+	 *            Width of the text area.
 	 * @param height
-	 * 		Height of the text area.
+	 *            Height of the text area.
 	 */
 	public CenteredGameTextArea(int width, int height) {
 		super(width, height);
-		
 
 		StyledDocument doc = textPane.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();

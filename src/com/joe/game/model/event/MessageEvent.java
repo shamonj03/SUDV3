@@ -1,10 +1,8 @@
 package com.joe.game.model.event;
 
-import com.joe.game.model.Event;
-
 public class MessageEvent extends Event {
 
-	private String message;
+	private final String message;
 
 	public MessageEvent(String message) {
 		this.message = message;

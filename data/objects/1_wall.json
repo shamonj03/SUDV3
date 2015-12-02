@@ -6,10 +6,8 @@
 		},
 		"com.joe.game.model.component.WorldSettings": {
 		},
-		"com.joe.game.model.component.MapView": {
-			"view": [
-				[ 'x']
-			]
+		"com.joe.game.model.component.SimpleMapView": {
+			"view": 'X'
 		}
 	}
 }

@@ -1,17 +1,11 @@
 package com.joe.game;
 
-import com.joe.game.control.entity.EntityFactory;
+import com.joe.game.control.MenuController;
 import com.joe.game.control.event.EventController;
-import com.joe.game.io.OnDemandComponentDataFetcher;
 import com.joe.game.io.ScriptManager;
-import com.joe.game.model.Item;
-import com.joe.game.model.ItemContainer;
-import com.joe.game.model.Zone;
-import com.joe.game.model.component.Position;
-import com.joe.game.model.entity.Npc;
-import com.joe.game.model.event.MessageEvent;
-import com.joe.view.DefaultMessageEncoder;
-import com.joe.view.MessageEncoder;
+import com.joe.game.model.World;
+import com.joe.view.message.DefaultMessageEncoder;
+import com.joe.view.message.MessageEncoder;
 
 public class Game extends GameThread {
 	/**
@@ -30,10 +24,29 @@ public class Game extends GameThread {
 	private static MessageEncoder menuMessageEncoder = new DefaultMessageEncoder();
 
 	/**
+	 * Handles events being processed by the game.
+	 */
+	private static EventController eventController = new EventController();
+
+	/**
+	 * Handles menu being displayed by game.
+	 */
+	private static MenuController menuController = new MenuController();
+
+	/**
+	 * The world the game is seeing.
+	 */
+	private static World world;
+
+	/**
 	 * Initialize any pregame data.
 	 */
 	public void initialize() {
+		mapMessageEncoder.printLine();
+		mapMessageEncoder.printLine();
+		mapMessageEncoder.printLine("Loading game please wait...");
 		ScriptManager.loadScripts();
+		mapMessageEncoder.clear();
 	}
 
 	/**
@@ -42,18 +55,20 @@ public class Game extends GameThread {
 	public void startGame() {
 		initialize();
 
+		world = new World();
+		world.initialize();
+
+		world.draw();
+		menuController.draw();
+
 		startGameThread();
-		
-		Zone zone = new Zone(0);
-		zone.initializeMap();
-		zone.printZone();
 	}
 
 	/**
 	 * Update the game every game tick.
 	 */
 	@Override public void onTick() {
-		EventController.handleEvents();
+		eventController.handleEvents();
 	}
 
 	/**
@@ -107,4 +122,24 @@ public class Game extends GameThread {
 		return menuMessageEncoder;
 	}
 
+	/**
+	 * @return The handler for events in the game.
+	 */
+	public static EventController getEventController() {
+		return eventController;
+	}
+
+	/**
+	 * @return The controller for visible menus.
+	 */
+	public static MenuController getMenuController() {
+		return menuController;
+	}
+
+	/**
+	 * @return The world visible by the game.
+	 */
+	public static World getWorld() {
+		return world;
+	}
 }

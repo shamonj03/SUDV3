@@ -1,6 +1,5 @@
 package com.joe.game.model.component;
 
-import com.joe.game.model.Component;
 
 /**
  * A class to define something's settings in the world.

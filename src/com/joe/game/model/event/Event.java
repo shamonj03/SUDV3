@@ -1,4 +1,4 @@
-package com.joe.game.model;
+package com.joe.game.model.event;
 
 /**
  * An event is called to make interacting with the world easier.

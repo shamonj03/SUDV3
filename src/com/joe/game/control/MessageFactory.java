@@ -1,9 +1,16 @@
-package com.joe.view;
+package com.joe.game.control;
 
 /**
  * A class containing messages used throughout the game.
  */
-public class Messages {
+public class MessageFactory {
+	/**
+	 * Everything is this class is static. No instantiation.
+	 */
+	private MessageFactory() {
+		throw new UnsupportedOperationException("Instantiation not allowed here.");
+	}
+	
 	/**
 	 * An example message.
 	 * 
@@ -34,10 +41,5 @@ public class Messages {
 			}
 		}
 		return message;
-	}
-	
-	private Messages() {
-		// Prevents instantiation.
-		throw new UnsupportedOperationException("Instantion not allowed here.");
 	}
 }

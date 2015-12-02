@@ -2,8 +2,9 @@ package com.joe.game.control;
 
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
-import com.joe.game.model.Component;
+import com.joe.game.model.component.Component;
 
 /**
  * Controls the components of the parent.
@@ -15,6 +16,36 @@ public class ComponentController {
 	 * V: Component Instance.
 	 */
 	private HashMap<Class<? extends Component>, Component> components = new HashMap<>();
+
+	/**
+	 * Do something with a component.
+	 * 
+	 * @param componentClass
+	 *            The class name of the component.
+	 * @param consumer
+	 *            Do something if the component exists.
+	 */
+	public <T extends Component> void execute(Class<T> componentClass, Consumer<T> consumer) {
+		if (containsComponent(componentClass)) {
+			T component = getComponent(componentClass);
+			consumer.accept(component);
+		}
+	}
+
+	/**
+	 * Get a component from the parent.
+	 * 
+	 * @param componentClass
+	 *            The class name of the component.
+	 * @return the component if it's there, other wise throw
+	 *         NoSuchElementException.
+	 */
+	@SuppressWarnings("unchecked") public <T extends Component> T getComponent(Class<T> componentClass) {
+		if (!containsComponent(componentClass)) {
+			throw new NoSuchElementException("No component registered to " + componentClass + ".");
+		}
+		return (T) components.get(componentClass);
+	}
 
 	/**
 	 * Unregister a component from the parent.
@@ -40,24 +71,21 @@ public class ComponentController {
 	}
 
 	/**
-	 * Get a component from the parent.
+	 * Checks if this parent has a component.
 	 * 
 	 * @param componentClass
 	 *            The class name of the component.
-	 * @return the component if it's there, other wise throw NoSuchElementException.
+	 * 
+	 * @return true if the component is here.
 	 */
-	@SuppressWarnings("unchecked") public <T extends Component> T getComponent(Class<T> componentClass) {
-		if (!containsComponent(componentClass)) {
-			throw new NoSuchElementException("No component registered to " + componentClass + ".");
-		}
-		return (T) components.get(componentClass);
-	}
-	
 	public <T extends Component> boolean containsComponent(Class<T> componentClass) {
 		return components.containsKey(componentClass);
 	}
 
-	@Override public String toString() {
+	/**
+	 * @return the components as a string.
+	 */
+	protected String componentsToString() {
 		String s = "";
 
 		for (Component component : components.values()) {
@@ -65,4 +93,9 @@ public class ComponentController {
 		}
 		return s;
 	}
+
+	@Override public String toString() {
+		return componentsToString();
+	}
+
 }

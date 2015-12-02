@@ -1,7 +1,6 @@
 package com.joe.game.model;
 
 import java.util.UUID;
-
 import com.joe.game.control.ComponentController;
 
 /**
@@ -9,7 +8,6 @@ import com.joe.game.control.ComponentController;
  * An entity is anything in the game that makes up the world.
  */
 public abstract class Entity extends ComponentController {
-
 	/**
 	 * Unique randomized Id give to an entity to distinguish them
 	 * from entities of the same type.
@@ -32,13 +30,13 @@ public abstract class Entity extends ComponentController {
 	 * Prints out the entity
 	 * Output:
 	 * Entity_TYPE: uniqueId
-	 * 		Components[...]
+	 * Components[...]
 	 */
 	@Override public String toString() {
 		String s = "";
 		s = s + "Entity_" + getType() + ": " + uniqueID + "\n";
 
-		String[] lines = super.toString().split("\\r?\\n");
+		String[] lines = componentsToString().split("\\r?\\n");
 
 		for (String line : lines) {
 			s = s + "\t" + line + "\n";

@@ -8,14 +8,8 @@
 			"solid": false,
 			"interactable": true
 		},
-		"com.joe.game.model.component.MapView": {
-			"view": [
-				[ "T" ]
-			]
-		},
-		"com.joe.game.model.component.Dimensions": {
-			"width": 2,
-			"height": 3
+		"com.joe.game.model.component.SimpleMapView": {
+			"view": 'T'
 		}
 	}
 }

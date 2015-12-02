@@ -1,7 +1,5 @@
 package com.joe.game.model.event;
 
-import com.joe.game.model.Event;
-
 public class CommandEvent extends Event {
 
 	private String command;

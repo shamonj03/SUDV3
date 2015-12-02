@@ -7,9 +7,9 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import com.joe.game.control.event.EventController;
-import com.joe.util.Constants;
+import com.joe.game.Game;
 import com.joe.game.model.event.InputEvent;
+import com.joe.util.Constants;
 
 @SuppressWarnings("serial") public class GameInputArea extends JTextField {
 
@@ -32,7 +32,7 @@ import com.joe.game.model.event.InputEvent;
 
 		addActionListener(e -> {
 			String text = getText().trim();
-			EventController.sendEvent(new InputEvent(text));
+			Game.getEventController().sendEvent(new InputEvent(text));
 			setText("");
 		});
 

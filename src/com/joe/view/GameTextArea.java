@@ -14,6 +14,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import com.joe.util.Constants;
+import com.joe.view.message.MessageEncoder;
 
 @SuppressWarnings("serial") public class GameTextArea extends JPanel implements MessageEncoder {
 	/**
@@ -64,6 +65,10 @@ import com.joe.util.Constants;
 	 * Clear the text of the pane.
 	 */
 	public void clearText() {
+		setText("");
+	}
+	
+	@Override public void clear() {
 		setText("");
 	}
 

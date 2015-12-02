@@ -1,4 +1,4 @@
-package com.joe.game.model;
+package com.joe.game.model.component;
 
 /**
  * A component used in the entity system.

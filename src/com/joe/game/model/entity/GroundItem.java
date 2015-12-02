@@ -1,12 +1,12 @@
 package com.joe.game.model.entity;
 
-import com.joe.game.model.Entity;
+import com.joe.game.model.DefinitionEntity;
 import com.joe.game.model.EntityType;
 import com.joe.game.model.Item;
-import com.joe.game.model.component.MapView;
 import com.joe.game.model.component.Position;
+import com.joe.game.model.component.SimpleMapView;
 
-public class GroundItem extends Entity {
+public class GroundItem extends DefinitionEntity {
 	/**
 	 * The item registered to this ground item.
 	 */
@@ -21,11 +21,10 @@ public class GroundItem extends Entity {
 	 *            The position the item is.
 	 */
 	public GroundItem(Item item, Position position) {
+		super(item.getId());
 		this.item = item;
 		this.register(position);
-		this.register(new MapView(new char[][] {
-				{ 'I' }
-		}));
+		this.register(new SimpleMapView('I'));
 	}
 
 	/**

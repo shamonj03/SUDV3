@@ -12,7 +12,7 @@ public class SUDGui extends Game {
 		JFrame frame = new JFrame("SUD - Joe Resch");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		GameTextArea mapTextArea = new CenteredGameTextArea(600, 128);
+		GameTextArea mapTextArea = new CenteredGameTextArea(600, 148);
 		GameTextArea gameTextArea = new GameTextArea(250, 200);
 		GameTextArea menuTextArea = new GameTextArea(350, 200);
 		GameInputArea inputArea = new GameInputArea(500, 24);
@@ -20,7 +20,7 @@ public class SUDGui extends Game {
 		setMapMessageEncoder(mapTextArea);
 		setGameMessageEncoder(gameTextArea);
 		setMenuMessageEncoder(menuTextArea);
-		
+
 		frame.add(mapTextArea, BorderLayout.NORTH);
 		frame.add(gameTextArea, BorderLayout.CENTER);
 		frame.add(menuTextArea, BorderLayout.WEST);

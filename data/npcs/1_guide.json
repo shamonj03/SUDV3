@@ -8,10 +8,8 @@
 			"solid": false,
 			"interactable": true
 		},
-		"com.joe.game.model.component.MapView": {
-			"view": [
-				[ "G"]
-			]
+		"com.joe.game.model.component.SimpleMapView": {
+			"view": 'G'
 		},
 		"com.joe.game.model.component.Health": {
 			"health": 9000

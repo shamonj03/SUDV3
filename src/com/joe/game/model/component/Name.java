@@ -1,6 +1,5 @@
 package com.joe.game.model.component;
 
-import com.joe.game.model.Component;
 
 /**
  * A name component used for identifying something.
