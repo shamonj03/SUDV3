@@ -1,15 +1,18 @@
 package com.joe.game.model.component;
 
-
 /**
  * A health component given to a entity.
  */
 @DefinitionComponent public class Health extends Component {
-
 	/**
 	 * The amount of health something has.
 	 */
 	private int health = 10;
+
+	/**
+	 * The initial health.
+	 */
+	private final int defaultHealth;
 
 	/**
 	 * Creates a new health component for something.
@@ -18,6 +21,7 @@ package com.joe.game.model.component;
 	 *            The amount of health something has.
 	 */
 	public Health(int health) {
+		this.defaultHealth = health;
 		this.health = health;
 	}
 
@@ -53,6 +57,13 @@ package com.joe.game.model.component;
 	 */
 	public int getHealth() {
 		return health;
+	}
+
+	/**
+	 * @return The initial health.
+	 */
+	public int getDefaultHealth() {
+		return defaultHealth;
 	}
 
 	@Override public String toString() {

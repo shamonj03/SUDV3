@@ -105,6 +105,8 @@ public class Zone extends BoundedMap<Character> {
 
 		int camX = camera.getLocation().getX();
 		int camY = camera.getLocation().getY();
+		
+		
 		int startX = camX - (camera.getWidth() / 2);
 		int startY = camY - (camera.getHeight() / 2);
 		int endX = camX + (camera.getWidth() / 2);

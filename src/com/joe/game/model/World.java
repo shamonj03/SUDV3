@@ -1,9 +1,11 @@
 package com.joe.game.model;
 
+import com.joe.game.Game;
 import com.joe.game.control.EntityFactory;
 import com.joe.game.control.ZoneInstanceController;
 import com.joe.game.model.component.Position;
 import com.joe.game.model.entity.Player;
+import com.joe.game.model.event.EquipItemEvent;
 
 /**
  * This is the current world visible by the game.
@@ -24,6 +26,13 @@ public class World {
 
 		Zone zone = zoneInstanceController.getCurrentZone();
 		zone.npcController.register(EntityFactory.createNpc(1, new Position(1, 2)));
+		
+		player.getInventory().addItem(0, 1);
+		Game.getEventController().sendEvent(new EquipItemEvent(new Item(0, 1)));
+		Game.getEventController().sendEvent(new EquipItemEvent(new Item(0, 1)));
+		Game.getEventController().sendEvent(new EquipItemEvent(new Item(1, 5)));
+		Game.getEventController().sendEvent(new EquipItemEvent(new Item(1, 15)));
+
 	}
 
 	public void draw() {

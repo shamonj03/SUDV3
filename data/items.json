@@ -1,10 +1,12 @@
 {
 	"id": 0,
 	"name": "Bow",
-	"stackable": false
+	"stackable": false,
+	"equipmentSlot": WEAPON
 }
 {
 	"id": 1,
 	"name": "Arrow",
-	"stackable": true
+	"stackable": true,
+	"equipmentSlot": AMMO
 }

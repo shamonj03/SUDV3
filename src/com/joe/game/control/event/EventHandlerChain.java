@@ -9,10 +9,6 @@ public class EventHandlerChain<T extends Event> {
 
 	private ArrayList<EventHandler<T>> chain = new ArrayList<>();
 
-	public EventHandlerChain() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@SuppressWarnings("unchecked") public EventHandlerChain(EventHandler<T>... defaultHandlers) {
 		for (EventHandler<T> handler : defaultHandlers) {
 			addHandler(handler);

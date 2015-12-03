@@ -2,6 +2,7 @@ package com.joe.game.model.entity;
 
 import com.joe.game.model.Entity;
 import com.joe.game.model.EntityType;
+import com.joe.game.model.ItemContainer;
 import com.joe.game.model.component.Name;
 import com.joe.game.model.component.Position;
 import com.joe.game.model.component.SimpleMapView;
@@ -11,6 +12,10 @@ import com.joe.game.model.component.SimpleMapView;
  * This player is the person playing in the game.
  */
 public class Player extends Entity {
+	
+	private ItemContainer inventory = new ItemContainer(28);
+	
+	private ItemContainer equipment = new ItemContainer(4);
 
 	/**
 	 * Create a new player.
@@ -25,5 +30,13 @@ public class Player extends Entity {
 
 	@Override public EntityType getType() {
 		return EntityType.PLAYER;
+	}
+	
+	public ItemContainer getEquipment() {
+		return equipment;
+	}
+	
+	public ItemContainer getInventory() {
+		return inventory;
 	}
 }

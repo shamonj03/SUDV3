@@ -1,7 +1,5 @@
 package com.joe.game.model;
 
-import java.util.ArrayList;
-
 import com.joe.game.io.DataManager;
 import com.joe.game.io.data.ItemData;
 
@@ -12,10 +10,12 @@ public class ItemContainer {
 	 */
 	private int capacity;
 
+	private int size;
+
 	/**
 	 * List of items in this container.
 	 */
-	private ArrayList<Item> items;
+	private Item[] items;
 
 	/**
 	 * Create a new item container.
@@ -24,12 +24,13 @@ public class ItemContainer {
 	 *            Max capacity this container can hold.
 	 */
 	public ItemContainer(int capacity) {
+		this.size = 0;
 		this.capacity = capacity;
-		this.items = new ArrayList<>(capacity);
+		this.items = new Item[capacity];
 	}
 
 	/**
-	 * Set the slot in the contianer to an item with an amount.
+	 * Set the slot in the container to an item with an amount.
 	 * 
 	 * @param slot
 	 *            Slot to set.
@@ -39,7 +40,19 @@ public class ItemContainer {
 	 *            Amount to set to.
 	 */
 	public void setSlot(int slot, int id, int amount) {
-		items.set(slot, new Item(id, amount));
+		setSlot(slot, new Item(id, amount));
+	}
+
+	/**
+	 * Set the slot in the container to an item
+	 * 
+	 * @param item
+	 *            THe item to set to.
+	 * @param amount
+	 *            Amount to set to.
+	 */
+	public void setSlot(int slot, Item item) {
+		items[slot] = item;
 	}
 
 	/**
@@ -56,24 +69,28 @@ public class ItemContainer {
 		ItemData data = DataManager.getItemDefinition().forId(id);
 
 		if (data.isStackable()) {
-			if ((getSize() + 1) > capacity) {
-				return false;
-			}
 			int slot = getSlot(id);
-			boolean contiansItem = slot != -1;
 
-			if (contiansItem) {
-				Item currentItem = items.get(slot);
-				currentItem.offsetAmount(amount);
+			if (slot == -1) {
+				if (hasRoom(1)) {
+					return false;
+				}
+				int nextSlot = getNextOpenSlot();
+
+				setSlot(nextSlot, id, amount);
+				size++;
 			} else {
-				items.add(new Item(id, amount));
+				items[slot].offsetAmount(amount);
 			}
 		} else {
-			if ((getSize() + amount) > capacity) {
+			if (hasRoom(amount)) {
 				return false;
 			}
-			for (int i = 0; i < amount; i++) {
-				items.add(new Item(id, 1));
+			for (int amt = 0; amt < amount; amt++) {
+				int nextSlot = getNextOpenSlot();
+
+				setSlot(nextSlot, id, 1);
+				size++;
 			}
 		}
 		return true;
@@ -90,31 +107,32 @@ public class ItemContainer {
 	 * @return false if was unable to find item.
 	 */
 	public boolean remove(int id, int amount) {
-		ItemData data = DataManager.getItemDefinition().forId(id);
+		int slot = getSlot(id);
+
+		if (slot == -1) {
+			return false;
+		}
+
+		Item item = items[slot];
+		ItemData data = item.getData();
 
 		if (data.isStackable()) {
-			int slot = getSlot(id);
+			int amt = item.getAmount() - amount;
 
-			if (slot == -1) {
-				return false;
-			}
-
-			Item slotItem = items.get(slot);
-			int newAmount = slotItem.getAmount() - amount;
-
-			if (newAmount > 0) {
-				slotItem.setAmount(newAmount);
+			if (amt <= 0) {
+				items[slot] = null;
+				size--;
 			} else {
-				items.remove(slot);
+				item.offsetAmount(-amount);
 			}
 		} else {
-			for (int i = 0; i < amount; i++) {
-				int slot = getSlot(id);
-
+			for (int amt = 0; amt < amount; amt++) {
 				if (slot == -1) {
-					break;
+					return false;
 				}
-				items.remove(slot);
+				items[slot] = null;
+				size--;
+				slot = getSlot(id);
 			}
 		}
 		return true;
@@ -131,13 +149,19 @@ public class ItemContainer {
 	 */
 	public Item getItem(int slot) {
 		if (slot < capacity) {
-			if (slot < getSize()) {
-				return items.get(slot);
-			}
-			throw new IndexOutOfBoundsException("Slot " + slot + " is not within current container size " + getSize()
-					+ ".");
+			return items[slot] != null ? items[slot] : null;
+			//throw new IndexOutOfBoundsException("Slot " + slot + " is not within current container size " + getSize() 	+ ".");
 		}
 		throw new IndexOutOfBoundsException("Slot " + slot + " is outside containers capacity " + capacity + ".");
+	}
+
+	public int getNextOpenSlot() {
+		for (int index = 0; index < capacity; index++) {
+			if (items[index] == null) {
+				return index;
+			}
+		}
+		return -1;
 	}
 
 	/**
@@ -149,11 +173,14 @@ public class ItemContainer {
 	 * @return the slot if the item exists else -1.
 	 */
 	public int getSlot(int id) {
-		for (int slot = 0; slot < getSize(); slot++) {
-			Item currentItem = items.get(slot);
+		for (int index = 0; index < capacity; index++) {
+			Item item = items[index];
+			if (item == null) {
+				continue;
+			}
 
-			if (currentItem.getId() == id) {
-				return slot;
+			if (item.getId() == id) {
+				return index;
 			}
 		}
 		return -1;
@@ -172,11 +199,14 @@ public class ItemContainer {
 	public boolean containsAmount(int id, int amount) {
 		int found = 0;
 
-		for (int slot = 0; slot < getSize(); slot++) {
-			Item currentItem = items.get(slot);
+		for (int index = 0; index < capacity; index++) {
+			Item item = items[index];
+			if (item == null) {
+				continue;
+			}
 
-			if (currentItem.getId() == id) {
-				found += currentItem.getAmount();
+			if (item.getId() == id) {
+				found = found + item.getAmount();
 			}
 		}
 		return found >= amount;
@@ -205,6 +235,25 @@ public class ItemContainer {
 	 * @return the amount of items currently in the container.
 	 */
 	public int getSize() {
-		return items.size();
+		return size;
+	}
+
+	public boolean isFull() {
+		return size > capacity;
+	}
+
+	public boolean hasRoom(int amount) {
+		return size + amount > capacity;
+	}
+
+	@Override public String toString() {
+		String s = "ItemContainer:\n";
+		for (Item item : items) {
+			if (item == null) {
+				continue;
+			}
+			s = s + "\t" + item + "\n";
+		}
+		return s;
 	}
 }

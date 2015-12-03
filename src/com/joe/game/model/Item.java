@@ -68,4 +68,8 @@ public class Item {
 	public int getAmount() {
 		return amount;
 	}
+	
+	@Override public String toString() {
+		return "Item(ID: " + id + ", Amount: " + amount + ", Data:[" + getData() + "])";
+	}
 }

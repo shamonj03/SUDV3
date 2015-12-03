@@ -2,7 +2,6 @@ package com.joe.game;
 
 import com.joe.game.control.MenuController;
 import com.joe.game.control.event.EventController;
-import com.joe.game.io.ScriptManager;
 import com.joe.game.model.World;
 import com.joe.view.message.DefaultMessageEncoder;
 import com.joe.view.message.MessageEncoder;
@@ -37,7 +36,6 @@ public class Game extends GameThread {
 	 * The world the game is seeing.
 	 */
 	private static World world;
-
 	/**
 	 * Initialize any pregame data.
 	 */
@@ -45,8 +43,9 @@ public class Game extends GameThread {
 		mapMessageEncoder.printLine();
 		mapMessageEncoder.printLine();
 		mapMessageEncoder.printLine("Loading game please wait...");
-		ScriptManager.loadScripts();
+		//ScriptManager.loadScripts();
 		mapMessageEncoder.clear();
+	
 	}
 
 	/**
@@ -58,9 +57,9 @@ public class Game extends GameThread {
 		world = new World();
 		world.initialize();
 
-		world.draw();
-		menuController.draw();
-
+		Game.getWorld().draw();
+		Game.getMenuController().draw();
+		
 		startGameThread();
 	}
 

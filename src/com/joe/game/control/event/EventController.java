@@ -1,13 +1,19 @@
 package com.joe.game.control.event;
 
 import java.util.HashMap;
-import java.util.Stack;
+import java.util.LinkedList;
 
 import com.joe.game.model.EventHandler;
+import com.joe.game.model.event.CameraPositionEvent;
+import com.joe.game.model.event.DrawGameScreenEvent;
+import com.joe.game.model.event.EquipItemEvent;
 import com.joe.game.model.event.Event;
 import com.joe.game.model.event.InputEvent;
 import com.joe.game.model.event.MessageEvent;
 import com.joe.game.model.event.MovementEvent;
+import com.joe.game.model.event.impl.CameraPositionEventHandler;
+import com.joe.game.model.event.impl.DrawGameScreenEventHandler;
+import com.joe.game.model.event.impl.EquipItemEventHandler;
 import com.joe.game.model.event.impl.InputEventHandler;
 import com.joe.game.model.event.impl.MessageEventHandler;
 import com.joe.game.model.event.impl.MovementEventHandler;
@@ -16,12 +22,12 @@ public class EventController {
 	/**
 	 * A map containing all event handlers registered to an event.
 	 */
-	private HashMap<Class<? extends Event>, EventHandlerChain<? extends Event>> eventMap = new HashMap<>();
+	private final HashMap<Class<? extends Event>, EventHandlerChain<? extends Event>> eventMap = new HashMap<>();
 
 	/**
 	 * Stack of events ready to be processed.
 	 */
-	private Stack<? super Event> eventStack = new Stack<>();
+	private final LinkedList<? super Event> eventStack = new LinkedList<>();
 
 	/**
 	 * Define the event handlers.
@@ -33,6 +39,9 @@ public class EventController {
 		register(InputEvent.class, new InputEventHandler());
 		register(MessageEvent.class, new MessageEventHandler());
 		register(MovementEvent.class, new MovementEventHandler());
+		register(DrawGameScreenEvent.class, new DrawGameScreenEventHandler());
+		register(CameraPositionEvent.class, new CameraPositionEventHandler());
+		register(EquipItemEvent.class, new EquipItemEventHandler());
 	}
 
 	@SuppressWarnings("unchecked") public <T extends Event> void register(Class<T> key, EventHandler<T> handler) {
@@ -54,7 +63,7 @@ public class EventController {
 	 *            The event to send.
 	 */
 	public <M extends Event> void sendEvent(M event) {
-		eventStack.push(event);
+		eventStack.add(event);
 	}
 
 	/**
@@ -66,7 +75,7 @@ public class EventController {
 			return;
 		}
 
-		M event = (M) eventStack.pop();
+		M event = (M) eventStack.pollFirst();
 
 		Class<? extends Event> key = event.getClass();
 		if (eventMap.get(key) == null) {

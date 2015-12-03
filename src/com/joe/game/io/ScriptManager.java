@@ -29,4 +29,8 @@ public class ScriptManager {
 			}
 		}
 	}
+	
+	public static void reloadScripts() {
+		loadScripts();
+	}
 }

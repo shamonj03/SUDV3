@@ -1,6 +1,7 @@
 package com.joe.game.model;
 
 import java.util.UUID;
+
 import com.joe.game.control.ComponentController;
 
 /**
