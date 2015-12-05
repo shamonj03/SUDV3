@@ -3,7 +3,6 @@ package com.joe.game.model;
 import com.joe.game.model.component.Position;
 
 public class Camera {
-
 	/**
 	 * Position of the camera.
 	 */

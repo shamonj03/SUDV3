@@ -1,7 +1,8 @@
 package com.joe.game;
 
-import com.joe.game.control.MenuController;
-import com.joe.game.control.event.EventController;
+import com.joe.game.control.MenuManager;
+import com.joe.game.control.event.EventDispatcher;
+import com.joe.game.io.ScriptManager;
 import com.joe.game.model.World;
 import com.joe.view.message.DefaultMessageEncoder;
 import com.joe.view.message.MessageEncoder;
@@ -25,12 +26,12 @@ public class Game extends GameThread {
 	/**
 	 * Handles events being processed by the game.
 	 */
-	private static EventController eventController = new EventController();
+	private static EventDispatcher eventDispatcher = new EventDispatcher();
 
 	/**
 	 * Handles menu being displayed by game.
 	 */
-	private static MenuController menuController = new MenuController();
+	private static MenuManager menuController = new MenuManager();
 
 	/**
 	 * The world the game is seeing.
@@ -43,9 +44,8 @@ public class Game extends GameThread {
 		mapMessageEncoder.printLine();
 		mapMessageEncoder.printLine();
 		mapMessageEncoder.printLine("Loading game please wait...");
-		//ScriptManager.loadScripts();
+		ScriptManager.loadScripts();
 		mapMessageEncoder.clear();
-	
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class Game extends GameThread {
 	 * Update the game every game tick.
 	 */
 	@Override public void onTick() {
-		eventController.handleEvents();
+		eventDispatcher.handleEvents();
 	}
 
 	/**
@@ -124,14 +124,14 @@ public class Game extends GameThread {
 	/**
 	 * @return The handler for events in the game.
 	 */
-	public static EventController getEventController() {
-		return eventController;
+	public static EventDispatcher getEventDispatcher() {
+		return eventDispatcher;
 	}
 
 	/**
 	 * @return The controller for visible menus.
 	 */
-	public static MenuController getMenuController() {
+	public static MenuManager getMenuController() {
 		return menuController;
 	}
 

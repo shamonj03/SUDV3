@@ -33,6 +33,11 @@ public final class Constants {
 	 */
 	public static final int[][] TILE_OFFSETS = { { -1, 0, }, { 0, -1 }, { 0, 0, }, { 1, 0 }, { 0, 1 } };
 
+	/**
+	 * Path to script folder.
+	 */
+	public static final String SCRIPT_FOLDER = "./data/scripts/";
+
 	private Constants() {
 		// Prevents instantiation.
 		throw new UnsupportedOperationException("Instantiation not allowed here.");

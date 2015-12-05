@@ -94,6 +94,9 @@ public class ComponentController {
 		return s;
 	}
 
+	/**
+	 * @return the components of the parent as a formated string.
+	 */
 	@Override public String toString() {
 		return componentsToString();
 	}

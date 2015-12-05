@@ -12,7 +12,7 @@ public class InputEventHandler extends EventHandler<InputEvent> {
 		String message = event.getInput();
 
 		if (message.startsWith("::")) {
-			Game.getEventController().sendEvent(new CommandEvent(message));
+			Game.getEventDispatcher().dispatch(new CommandEvent(message));
 			return;
 		} else {
 			GameMenu menu = Game.getMenuController().getVisibleMenu();

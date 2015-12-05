@@ -19,7 +19,7 @@ public class EquipItemEventHandler extends EventHandler<EquipItemEvent> {
 		ItemContainer inventory = player.getInventory();
 
 		EquipmentSlot equipmentSlot = item.getData().getEquipmentSlot();
-		int slot = equipmentSlot.getSlot() - 1;
+		int slot = equipmentSlot.getSlot();
 
 		Item currentSlotItem = equipment.getItem(slot);
 

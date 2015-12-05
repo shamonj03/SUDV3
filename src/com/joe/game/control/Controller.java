@@ -1,4 +1,4 @@
-package com.joe.game.control.stack;
+package com.joe.game.control;
 
 public interface Controller<E> {
 

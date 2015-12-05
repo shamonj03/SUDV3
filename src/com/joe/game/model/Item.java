@@ -4,7 +4,6 @@ import com.joe.game.io.DataManager;
 import com.joe.game.io.data.ItemData;
 
 public class Item {
-
 	/**
 	 * Id of item from the definition.
 	 */
@@ -32,7 +31,7 @@ public class Item {
 	 * @return the data pertaining to the item.
 	 */
 	public ItemData getData() {
-		return DataManager.getItemDefinition().forId(id);
+		return DataManager.getItemDefinition().forID(id);
 	}
 
 	/**

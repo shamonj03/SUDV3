@@ -32,7 +32,7 @@ import com.joe.util.Constants;
 
 		addActionListener(e -> {
 			String text = getText().trim();
-			Game.getEventController().sendEvent(new InputEvent(text));
+			Game.getEventDispatcher().dispatch(new InputEvent(text));
 			setText("");
 		});
 

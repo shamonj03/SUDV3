@@ -11,6 +11,7 @@ import com.joe.game.model.component.Name;
 import com.joe.game.model.entity.GameObject;
 import com.joe.game.model.entity.GroundItem;
 import com.joe.game.model.entity.Npc;
+import com.joe.game.model.entity.Player;
 import com.joe.game.model.event.InputEvent;
 import com.joe.game.model.event.InteractWithGroundItemEvent;
 import com.joe.game.model.event.InteractWithNpcEvent;
@@ -41,6 +42,7 @@ public class EntityMenu extends GameMenu {
 			Game.getMenuController().setMenuID(0);
 		} else {
 			if (input.matches("[0-9]")) {
+				Player player = Game.getWorld().getPlayer();
 				ArrayList<DefinitionEntity> list = EntityFactory.getEntitiesInRange();
 
 				int index = Integer.parseInt(input);
@@ -50,12 +52,13 @@ public class EntityMenu extends GameMenu {
 					int zoneId = Game.getWorld().getZoneInstanceController().getCurrentZoneID();
 
 					if (entity.getType() == EntityType.NPC) {
-						Game.getEventController().sendEvent(new InteractWithNpcEvent(zoneId, (Npc) entity));
+						Game.getEventDispatcher().dispatch(new InteractWithNpcEvent(zoneId, player, (Npc) entity));
 					} else if (entity.getType() == EntityType.OBJECT) {
-						Game.getEventController().sendEvent(new InteractWithObjectEvent(zoneId, (GameObject) entity));
+						Game.getEventDispatcher().dispatch(
+								new InteractWithObjectEvent(zoneId, player, (GameObject) entity));
 					} else if (entity.getType() == EntityType.GROUND_ITEM) {
-						Game.getEventController().sendEvent(
-								new InteractWithGroundItemEvent(zoneId, (GroundItem) entity));
+						Game.getEventDispatcher().dispatch(
+								new InteractWithGroundItemEvent(zoneId, player, (GroundItem) entity));
 					}
 				}
 			}

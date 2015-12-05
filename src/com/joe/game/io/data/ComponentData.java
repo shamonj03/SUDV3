@@ -5,7 +5,12 @@ import java.util.HashMap;
 import com.joe.game.model.component.Component;
 
 public class ComponentData extends Data {
-
+	/**
+	 * Create a new data component with a unique ID.
+	 * 
+	 * @param id
+	 *            The id to set to.
+	 */
 	public ComponentData(int id) {
 		super(id);
 	}

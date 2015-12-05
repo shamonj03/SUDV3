@@ -10,7 +10,12 @@ import com.google.gson.JsonStreamParser;
 import com.joe.game.io.data.ComponentData;
 
 public class OnDemandComponentDataFetcher extends OnDemandDataFetcher<ComponentData> {
-
+	/**
+	 * Fetches data on demand. Does not cache data.
+	 * 
+	 * @param folderPath
+	 *            Path to folder of data.
+	 */
 	public OnDemandComponentDataFetcher(String folderPath) {
 		super(folderPath, ComponentData.class);
 	}

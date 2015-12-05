@@ -5,7 +5,7 @@ from com.joe.game.model.component import Position
 
 @on_event('InteractWithNpc')
 def do(event):
-	npc = event.getEntity()
+	npc = event.getTarget()
 	
 	if npc.globalID == 1:
 		send(MessageEvent("Hello adventurer aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!"))

@@ -49,7 +49,9 @@ public class OnDemandDataFetcher<T extends Data> {
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
 
-		populateFileMap();
+		if (fileMap == null) {
+			populateFileMap();
+		}
 
 		try {
 			File file = fileMap.get(id);
@@ -70,21 +72,19 @@ public class OnDemandDataFetcher<T extends Data> {
 	 * File Name Format: index_fileName.json
 	 */
 	protected void populateFileMap() {
-		if (fileMap == null) {
-			fileMap = new HashMap<>();
+		fileMap = new HashMap<>();
 
-			File folder = new File(folderPath);
-			File[] files = folder.listFiles();
+		File folder = new File(folderPath);
+		File[] files = folder.listFiles();
 
-			for (File file : files) {
-				String name = file.getName();
-				if (name.endsWith(".json")) {
-					String[] parts = name.split("_");
+		for (File file : files) {
+			String name = file.getName();
+			if (name.endsWith(".json")) {
+				String[] parts = name.split("_");
 
-					int index = Integer.parseInt(parts[0]);
+				int index = Integer.parseInt(parts[0]);
 
-					fileMap.put(index, file);
-				}
+				fileMap.put(index, file);
 			}
 		}
 	}

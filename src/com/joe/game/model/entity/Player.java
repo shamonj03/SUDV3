@@ -12,9 +12,14 @@ import com.joe.game.model.component.SimpleMapView;
  * This player is the person playing in the game.
  */
 public class Player extends Entity {
-	
+	/**
+	 * The players inventory.
+	 */
 	private ItemContainer inventory = new ItemContainer(28);
-	
+
+	/**
+	 * The players equipped items.
+	 */
 	private ItemContainer equipment = new ItemContainer(4);
 
 	/**
@@ -31,11 +36,17 @@ public class Player extends Entity {
 	@Override public EntityType getType() {
 		return EntityType.PLAYER;
 	}
-	
+
+	/**
+	 * @return the player inventory.
+	 */
 	public ItemContainer getEquipment() {
 		return equipment;
 	}
-	
+
+	/**
+	 * @return the players inventory.
+	 */
 	public ItemContainer getInventory() {
 		return inventory;
 	}

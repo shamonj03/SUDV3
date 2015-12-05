@@ -31,13 +31,13 @@ public class MainMenu extends GameMenu {
 			Player player = world.getPlayer();
 
 			if (index == 1) {
-				Game.getEventController().sendEvent(new MovementEvent(player, Direction.NORTH));
+				Game.getEventDispatcher().dispatch(new MovementEvent(player, Direction.NORTH));
 			} else if (index == 2) {
-				Game.getEventController().sendEvent(new MovementEvent(player, Direction.SOUTH));
+				Game.getEventDispatcher().dispatch(new MovementEvent(player, Direction.SOUTH));
 			} else if (index == 3) {
-				Game.getEventController().sendEvent(new MovementEvent(player, Direction.EAST));
+				Game.getEventDispatcher().dispatch(new MovementEvent(player, Direction.EAST));
 			} else if (index == 4) {
-				Game.getEventController().sendEvent(new MovementEvent(player, Direction.WEST));
+				Game.getEventDispatcher().dispatch(new MovementEvent(player, Direction.WEST));
 			} else if (index == 5) {
 				Game.getMenuController().setMenuID(1);
 			}

@@ -2,7 +2,7 @@ package com.joe.game.model;
 
 import com.joe.game.Game;
 import com.joe.game.control.EntityFactory;
-import com.joe.game.control.ZoneInstanceController;
+import com.joe.game.control.ZoneInstanceManager;
 import com.joe.game.model.component.Position;
 import com.joe.game.model.entity.Player;
 import com.joe.game.model.event.EquipItemEvent;
@@ -18,7 +18,7 @@ public class World {
 
 	private Camera camera;
 
-	private ZoneInstanceController zoneInstanceController = new ZoneInstanceController();
+	private ZoneInstanceManager zoneInstanceController = new ZoneInstanceManager();
 
 	public void initialize() {
 		player = new Player();
@@ -28,10 +28,10 @@ public class World {
 		zone.npcController.register(EntityFactory.createNpc(1, new Position(1, 2)));
 		
 		player.getInventory().addItem(0, 1);
-		Game.getEventController().sendEvent(new EquipItemEvent(new Item(0, 1)));
-		Game.getEventController().sendEvent(new EquipItemEvent(new Item(0, 1)));
-		Game.getEventController().sendEvent(new EquipItemEvent(new Item(1, 5)));
-		Game.getEventController().sendEvent(new EquipItemEvent(new Item(1, 15)));
+		Game.getEventDispatcher().dispatch(new EquipItemEvent(new Item(0, 1)));
+		Game.getEventDispatcher().dispatch(new EquipItemEvent(new Item(0, 1)));
+		Game.getEventDispatcher().dispatch(new EquipItemEvent(new Item(1, 5)));
+		Game.getEventDispatcher().dispatch(new EquipItemEvent(new Item(1, 15)));
 
 	}
 
@@ -48,7 +48,7 @@ public class World {
 		return player;
 	}
 
-	public ZoneInstanceController getZoneInstanceController() {
+	public ZoneInstanceManager getZoneInstanceController() {
 		return zoneInstanceController;
 	}
 }

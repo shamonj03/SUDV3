@@ -5,7 +5,6 @@ package com.joe.game.model.component;
  * A dimension class for defining how much 2D space something uses.
  */
 @DefinitionComponent public class Dimensions extends Component {
-
 	/**
 	 * Width of the object.
 	 */

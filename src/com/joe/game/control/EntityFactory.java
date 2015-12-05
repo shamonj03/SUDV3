@@ -3,10 +3,11 @@ package com.joe.game.control;
 import java.util.ArrayList;
 
 import com.joe.game.Game;
-import com.joe.game.control.stack.Stack;
+import com.joe.game.control.stack.StackController;
 import com.joe.game.io.DataManager;
 import com.joe.game.io.data.ComponentData;
 import com.joe.game.model.DefinitionEntity;
+import com.joe.game.model.Item;
 import com.joe.game.model.Zone;
 import com.joe.game.model.component.Component;
 import com.joe.game.model.component.Dimensions;
@@ -27,6 +28,21 @@ public class EntityFactory {
 	 */
 	private EntityFactory() {
 		throw new UnsupportedOperationException("Instantiation not allowed here.");
+	}
+
+	/**
+	 * Create a new Ground Item.
+	 * 
+	 * @param id
+	 *            The id given to Ground Item of the same type.
+	 * @param amount
+	 *            The amount of the item to spawn.
+	 * @param position
+	 *            The position to register the entity to.
+	 * @return the Ground Item created.
+	 */
+	public static GroundItem createNpc(int id, int amount, Position position) {
+		return new GroundItem(new Item(id, amount), position);
 	}
 
 	/**
@@ -101,7 +117,7 @@ public class EntityFactory {
 				}
 			});
 
-			Stack<Npc> npcs = zone.getNpcController().get(x, y);
+			StackController<Npc> npcs = zone.getNpcController().get(x, y);
 			npcs.forEach(npc -> {
 				npc.execute(WorldSettings.class, p -> {
 					if (p.isInteractable()) {
@@ -110,7 +126,7 @@ public class EntityFactory {
 				});
 			});
 
-			Stack<GroundItem> groundItems = zone.getGroundItemController().get(x, y);
+			StackController<GroundItem> groundItems = zone.getGroundItemController().get(x, y);
 			groundItems.forEach(item -> {
 				item.execute(WorldSettings.class, p -> {
 					if (p.isInteractable()) {

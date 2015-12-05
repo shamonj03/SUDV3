@@ -2,7 +2,6 @@ package com.joe.game.model.component;
 
 
 @DefinitionComponent public class MapView extends Component {
-
 	/**
 	 * The 2D array of the aerial view something has on the map.
 	 */

@@ -5,7 +5,6 @@ package com.joe.game.model.component;
  * A name component used for identifying something.
  */
 @DefinitionComponent public class Name extends Component {
-
 	/**
 	 * The name of the thing.
 	 */

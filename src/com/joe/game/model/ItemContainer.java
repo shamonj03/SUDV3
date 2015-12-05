@@ -4,12 +4,14 @@ import com.joe.game.io.DataManager;
 import com.joe.game.io.data.ItemData;
 
 public class ItemContainer {
-
 	/**
 	 * Max capacity this container can hold.
 	 */
 	private int capacity;
 
+	/**
+	 * The amount of items in the container.
+	 */
 	private int size;
 
 	/**
@@ -66,7 +68,7 @@ public class ItemContainer {
 	 * @return false if was unable to add.
 	 */
 	public boolean addItem(int id, int amount) {
-		ItemData data = DataManager.getItemDefinition().forId(id);
+		ItemData data = DataManager.getItemDefinition().forID(id);
 
 		if (data.isStackable()) {
 			int slot = getSlot(id);
@@ -155,6 +157,9 @@ public class ItemContainer {
 		throw new IndexOutOfBoundsException("Slot " + slot + " is outside containers capacity " + capacity + ".");
 	}
 
+	/**
+	 * @return the next slot that contains no data.
+	 */
 	public int getNextOpenSlot() {
 		for (int index = 0; index < capacity; index++) {
 			if (items[index] == null) {
@@ -238,10 +243,18 @@ public class ItemContainer {
 		return size;
 	}
 
+	/**
+	 * @return true if the size is below the capacity.
+	 */
 	public boolean isFull() {
 		return size > capacity;
 	}
 
+	/**
+	 * @param amount
+	 *            The amount try to add to the container.
+	 * @return true of the contaier has room for the amount.
+	 */
 	public boolean hasRoom(int amount) {
 		return size + amount > capacity;
 	}

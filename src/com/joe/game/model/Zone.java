@@ -3,8 +3,8 @@ package com.joe.game.model;
 import com.joe.game.Game;
 import com.joe.game.control.EntityFactory;
 import com.joe.game.control.stack.BoundedMap;
-import com.joe.game.control.stack.entity.StackedEntityControler;
-import com.joe.game.control.stack.entity.StaticEntityController;
+import com.joe.game.control.stack.entity.MultiStackEntityControler;
+import com.joe.game.control.stack.entity.SingleStackEntityController;
 import com.joe.game.io.DataManager;
 import com.joe.game.io.data.ZoneData;
 import com.joe.game.model.component.Position;
@@ -16,11 +16,11 @@ import com.joe.game.model.entity.Player;
 
 public class Zone extends BoundedMap<Character> {
 
-	protected final StackedEntityControler<Npc> npcController;
+	protected final MultiStackEntityControler<Npc> npcController;
 
-	protected final StaticEntityController<GameObject> gameObjectController;
+	protected final SingleStackEntityController<GameObject> gameObjectController;
 
-	protected final StackedEntityControler<GroundItem> groundItemController;
+	protected final MultiStackEntityControler<GroundItem> groundItemController;
 
 	private final int id;
 
@@ -35,9 +35,9 @@ public class Zone extends BoundedMap<Character> {
 
 		setBounds(width, height);
 
-		npcController = new StackedEntityControler<>(width, height);
-		gameObjectController = new StaticEntityController<>(width, height);
-		groundItemController = new StackedEntityControler<>(width, height);
+		npcController = new MultiStackEntityControler<>(width, height);
+		gameObjectController = new SingleStackEntityController<>(width, height);
+		groundItemController = new MultiStackEntityControler<>(width, height);
 
 		initializeMap();
 	}
@@ -149,15 +149,15 @@ public class Zone extends BoundedMap<Character> {
 		return DataManager.getZoneFetcher().forId(id);
 	}
 
-	public StaticEntityController<GameObject> getGameObjectController() {
+	public SingleStackEntityController<GameObject> getGameObjectController() {
 		return gameObjectController;
 	}
 
-	public StackedEntityControler<GroundItem> getGroundItemController() {
+	public MultiStackEntityControler<GroundItem> getGroundItemController() {
 		return groundItemController;
 	}
 
-	public StackedEntityControler<Npc> getNpcController() {
+	public MultiStackEntityControler<Npc> getNpcController() {
 		return npcController;
 	}
 
