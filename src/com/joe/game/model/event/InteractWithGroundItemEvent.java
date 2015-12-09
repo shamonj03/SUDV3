@@ -9,13 +9,15 @@ public class InteractWithGroundItemEvent extends InteractWithEntityEvent {
 	 * 
 	 * @param zone
 	 *            The zone the entity is in.
+	 * @param option
+	 *            The option chosen on interact.
 	 * @param source
 	 *            The entity interacting with the target.
 	 * @param entity
 	 *            The ground item being interacted with.
 	 */
-	public InteractWithGroundItemEvent(int zone, Entity source, GroundItem entity) {
-		super(zone, source, entity);
+	public InteractWithGroundItemEvent(int zone, int option, Entity source, GroundItem entity) {
+		super(zone, option, source, entity);
 	}
 
 }

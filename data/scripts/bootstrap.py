@@ -34,4 +34,4 @@ def on_command(cmd):
 	return handle
 	
 def send(event):
-	Game.getEventDispatcher().sendEvent(event)
+	Game.getEventDispatcher().dispatch(event)

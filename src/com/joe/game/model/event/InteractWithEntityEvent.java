@@ -9,6 +9,11 @@ public class InteractWithEntityEvent extends Event {
 	private final int zone;
 
 	/**
+	 * The option chosen on interact.
+	 */
+	private final int option;
+
+	/**
 	 * The entity interacting with the target.
 	 */
 	private final Entity source;
@@ -23,13 +28,16 @@ public class InteractWithEntityEvent extends Event {
 	 * 
 	 * @param zone
 	 *            The zone the entity is in.
+	 * @param option
+	 *            The option chosen on interact.
 	 * @param source
 	 *            The entity interacting with the target.
 	 * @param target
 	 *            The entity being interacted with.
 	 */
-	public InteractWithEntityEvent(int zone, Entity source, Entity target) {
+	public InteractWithEntityEvent(int zone, int option, Entity source, Entity target) {
 		this.zone = zone;
+		this.option = option;
 		this.source = source;
 		this.target = target;
 	}
@@ -39,6 +47,13 @@ public class InteractWithEntityEvent extends Event {
 	 */
 	public int getZone() {
 		return zone;
+	}
+	
+	/**
+	 * @return the option chosen on interact.
+	 */
+	public int getOption() {
+		return option;
 	}
 
 	/**
@@ -51,7 +66,7 @@ public class InteractWithEntityEvent extends Event {
 	/**
 	 * @return the entity being interacted with.
 	 */
-	public Entity getEntity() {
+	public Entity getTarget() {
 		return target;
 	}
 }

@@ -4,24 +4,24 @@ import com.joe.game.model.Item;
 
 public class UnequipItemEvent extends Event {
 	/**
-	 * The item to unequip.
+	 * The slot to unequip.
 	 */
-	private final Item item;
+	private final int slot;
 
 	/**
 	 * Create a new unequip event.
 	 * 
-	 * @param item
-	 *            The item to unequip.
+	 * @param slot
+	 *            The slot to unequip.
 	 */
-	public UnequipItemEvent(Item item) {
-		this.item = item;
+	public UnequipItemEvent(int slot) {
+		this.slot = slot;
 	}
 
 	/**
-	 * @return the item to unequip.
+	 * @return the slot to unequip.
 	 */
-	public Item getItem() {
-		return item;
+	public int getSlot() {
+		return slot;
 	}
 }

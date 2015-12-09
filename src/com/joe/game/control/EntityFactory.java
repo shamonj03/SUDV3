@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.joe.game.Game;
 import com.joe.game.control.stack.StackController;
-import com.joe.game.io.DataManager;
 import com.joe.game.io.data.ComponentData;
 import com.joe.game.model.DefinitionEntity;
 import com.joe.game.model.Item;
@@ -41,8 +40,22 @@ public class EntityFactory {
 	 *            The position to register the entity to.
 	 * @return the Ground Item created.
 	 */
-	public static GroundItem createNpc(int id, int amount, Position position) {
-		return new GroundItem(new Item(id, amount), position);
+	public static GroundItem createGroundItem(int id, int amount, Position position) {
+		GroundItem entity = new GroundItem(new Item(id, amount), position);
+		
+		ComponentData data = DataManager.getItemFetcher().forID(id);
+
+		entity.register(new Dimensions(1, 1));
+		for (Component component : data.getComponents().values()) {
+			entity.register(component);
+		}
+		entity.register(position);
+		return entity;
+	}
+	
+
+	public static GroundItem createGroundItem(Item item, Position position) {
+		return createGroundItem(item.getId(), item.getAmount(), position);
 	}
 
 	/**
@@ -57,7 +70,7 @@ public class EntityFactory {
 	 */
 	public static Npc createNpc(int id, Position position) {
 		Npc entity = new Npc(id);
-		ComponentData data = DataManager.getNpcFetcher().forId(id);
+		ComponentData data = DataManager.getNpcFetcher().forID(id);
 
 		entity.register(new Dimensions(1, 1));
 		for (Component component : data.getComponents().values()) {
@@ -79,7 +92,7 @@ public class EntityFactory {
 	 */
 	public static GameObject createGameObject(int id, Position position) {
 		GameObject entity = new GameObject(id);
-		ComponentData data = DataManager.getObjectFetcher().forId(id);
+		ComponentData data = DataManager.getObjectFetcher().forID(id);
 
 		entity.register(new Dimensions(1, 1));
 		for (Component component : data.getComponents().values()) {
@@ -94,7 +107,7 @@ public class EntityFactory {
 	 * 
 	 * @return a list of entities.
 	 */
-	public static ArrayList<DefinitionEntity> getEntitiesInRange() {
+	public static ArrayList<DefinitionEntity> getInteractableEntitiesInRange() {
 		ArrayList<DefinitionEntity> list = new ArrayList<>();
 
 		Zone zone = Game.getWorld().getZoneInstanceController().getCurrentZone();
@@ -111,28 +124,25 @@ public class EntityFactory {
 			}
 
 			GameObject object = zone.getGameObjectController().get(x, y);
-			object.execute(WorldSettings.class, p -> {
-				if (p.isInteractable()) {
-					list.add(object);
-				}
-			});
+			WorldSettings objectSettings = object.getComponent(WorldSettings.class);
+			if (objectSettings != null && objectSettings.isInteractable()) {
+				list.add(object);
+			}
 
 			StackController<Npc> npcs = zone.getNpcController().get(x, y);
 			npcs.forEach(npc -> {
-				npc.execute(WorldSettings.class, p -> {
-					if (p.isInteractable()) {
-						list.add(npc);
-					}
-				});
+				WorldSettings npcSettings = npc.getComponent(WorldSettings.class);
+				if (npcSettings != null && npcSettings.isInteractable()) {
+					list.add(npc);
+				}
 			});
 
 			StackController<GroundItem> groundItems = zone.getGroundItemController().get(x, y);
 			groundItems.forEach(item -> {
-				item.execute(WorldSettings.class, p -> {
-					if (p.isInteractable()) {
-						list.add(item);
-					}
-				});
+				WorldSettings groundItemSettings = item.getComponent(WorldSettings.class);
+				if (groundItemSettings != null && groundItemSettings.isInteractable()) {
+					list.add(item);
+				}
 			});
 		}
 		return list;

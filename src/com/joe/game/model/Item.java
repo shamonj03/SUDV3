@@ -1,7 +1,7 @@
 package com.joe.game.model;
 
-import com.joe.game.io.DataManager;
-import com.joe.game.io.data.ItemData;
+import com.joe.game.control.DataManager;
+import com.joe.game.io.data.ComponentData;
 
 public class Item {
 	/**
@@ -30,8 +30,8 @@ public class Item {
 	/**
 	 * @return the data pertaining to the item.
 	 */
-	public ItemData getData() {
-		return DataManager.getItemDefinition().forID(id);
+	public ComponentData getData() {
+		return DataManager.getItemFetcher().forID(id);
 	}
 
 	/**
@@ -69,6 +69,14 @@ public class Item {
 	}
 	
 	@Override public String toString() {
-		return "Item(ID: " + id + ", Amount: " + amount + ", Data:[" + getData() + "])";
+		String s = "Item(ID: " + id + ", Amount: " + amount + ", Data:[\n";
+
+		String[] lines = getData().componentsToString().split("\\r?\\n");
+
+		for (String line : lines) {
+			s = s + "\t" + line + "\n";
+		}
+		s = s + "])";
+		return s;
 	}
 }

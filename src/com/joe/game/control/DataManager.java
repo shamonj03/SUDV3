@@ -1,7 +1,8 @@
-package com.joe.game.io;
+package com.joe.game.control;
 
+import com.joe.game.io.OnDemandComponentDataFetcher;
+import com.joe.game.io.OnDemandDataFetcher;
 import com.joe.game.io.data.ZoneData;
-import com.joe.game.io.definition.ItemDefinition;
 
 public class DataManager {
 	/**
@@ -24,7 +25,8 @@ public class DataManager {
 	/**
 	 * Cache the all the items storing them by index.
 	 */
-	private static final ItemDefinition ITEM_DEFINITION = new ItemDefinition();
+	private static final OnDemandComponentDataFetcher ITEM_DEFINITION = new OnDemandComponentDataFetcher(
+			"./data/items/");
 
 	/**
 	 * @return the onDemand fetcher for npc data.
@@ -43,7 +45,7 @@ public class DataManager {
 	/**
 	 * @return the item definition containing all static item data.
 	 */
-	public static ItemDefinition getItemDefinition() {
+	public static OnDemandComponentDataFetcher getItemFetcher() {
 		return ITEM_DEFINITION;
 	}
 

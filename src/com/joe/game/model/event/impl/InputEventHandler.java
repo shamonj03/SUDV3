@@ -7,7 +7,10 @@ import com.joe.game.model.event.InputEvent;
 import com.joe.view.menu.GameMenu;
 
 public class InputEventHandler extends EventHandler<InputEvent> {
-
+	/**
+	 * Handle an input event. Input starting with "::" is a command
+	 * otherwise the input is most likely to do with a menu.
+	 */
 	@Override public void handle(InputEvent event) {
 		String message = event.getInput();
 

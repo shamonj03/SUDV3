@@ -1,0 +1,20 @@
+{ 
+	"id": 2,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Locked Door"
+		},
+		"com.joe.game.model.component.WorldSettings": {
+			"interactable": "true",
+			"solid": "true"
+		},
+		"com.joe.game.model.component.SimpleMapView": {
+			"view": 'D'
+		},
+		"com.joe.game.model.component.InteractOptions": {
+			"options": [
+				"Unlock"
+			]
+		}
+	}
+}

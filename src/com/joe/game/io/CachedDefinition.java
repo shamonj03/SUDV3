@@ -34,7 +34,7 @@ public class CachedDefinition<T extends Data> {
 			JsonStreamParser parser = new JsonStreamParser(new FileReader(file));
 			while (parser.hasNext()) {
 				T data = g.fromJson(parser.next(), type);
-				dataMap.put(data.getId(), data);
+				dataMap.put(data.getID(), data);
 			}
 		} catch (JsonIOException | JsonSyntaxException | FileNotFoundException e) {
 			e.printStackTrace();

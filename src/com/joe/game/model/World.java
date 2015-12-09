@@ -1,7 +1,6 @@
 package com.joe.game.model;
 
 import com.joe.game.Game;
-import com.joe.game.control.EntityFactory;
 import com.joe.game.control.ZoneInstanceManager;
 import com.joe.game.model.component.Position;
 import com.joe.game.model.entity.Player;
@@ -23,9 +22,6 @@ public class World {
 	public void initialize() {
 		player = new Player();
 		camera = new Camera(5, 5, player.getComponent(Position.class));
-
-		Zone zone = zoneInstanceController.getCurrentZone();
-		zone.npcController.register(EntityFactory.createNpc(1, new Position(1, 2)));
 		
 		player.getInventory().addItem(0, 1);
 		Game.getEventDispatcher().dispatch(new EquipItemEvent(new Item(0, 1)));

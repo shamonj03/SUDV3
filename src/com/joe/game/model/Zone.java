@@ -1,12 +1,16 @@
 package com.joe.game.model;
 
+import java.util.ArrayList;
+
 import com.joe.game.Game;
+import com.joe.game.control.DataManager;
 import com.joe.game.control.EntityFactory;
 import com.joe.game.control.stack.BoundedMap;
 import com.joe.game.control.stack.entity.MultiStackEntityControler;
 import com.joe.game.control.stack.entity.SingleStackEntityController;
-import com.joe.game.io.DataManager;
 import com.joe.game.io.data.ZoneData;
+import com.joe.game.io.data.zone.ZoneItem;
+import com.joe.game.io.data.zone.ZoneNpc;
 import com.joe.game.model.component.Position;
 import com.joe.game.model.component.SimpleMapView;
 import com.joe.game.model.entity.GameObject;
@@ -54,6 +58,19 @@ public class Zone extends BoundedMap<Character> {
 				gameObjectController.register(object);
 			}
 		}
+
+		ArrayList<ZoneNpc> npcs = getData().getNpcs();
+		for (ZoneNpc npcData : npcs) {
+			Npc npc = EntityFactory.createNpc(npcData.getID(), npcData.getPosition());
+			npcController.register(npc);
+		}
+
+		ArrayList<ZoneItem> items = getData().getItems();
+		for (ZoneItem itemData : items) {
+			GroundItem item = EntityFactory.createGroundItem(itemData.getItem(),
+					itemData.getPosition());
+			groundItemController.register(item);
+		}
 	}
 
 	public void setTileCharacters() {
@@ -63,25 +80,44 @@ public class Zone extends BoundedMap<Character> {
 			for (int col = 0; col < getWidth(); col++) {
 				GameObject object = gameObjectController.get(col, row);
 				SimpleMapView mapView = object.getComponent(SimpleMapView.class);
-				set(col, row, mapView.getView());
+				if (mapView != null) {
+					set(col, row, mapView.getView());
+				}
 			}
 		}
 
 		for (int row = 0; row < getHeight(); row++) {
 			for (int col = 0; col < getWidth(); col++) {
-				Npc object = npcController.get(col, row).getTop();
-				if (object == null) {
+				GroundItem item = groundItemController.get(col, row).getTop();
+				if (item == null) {
 					continue;
 				}
-				SimpleMapView mapView = object.getComponent(SimpleMapView.class);
-				set(col, row, mapView.getView());
+				SimpleMapView mapView = item.getComponent(SimpleMapView.class);
+				if (mapView != null) {
+					set(col, row, mapView.getView());
+				}
+			}
+		}
+
+		for (int row = 0; row < getHeight(); row++) {
+			for (int col = 0; col < getWidth(); col++) {
+				Npc npc = npcController.get(col, row).getTop();
+				if (npc == null) {
+					continue;
+				}
+				SimpleMapView mapView = npc.getComponent(SimpleMapView.class);
+				if (mapView != null) {
+					set(col, row, mapView.getView());
+				}
 			}
 		}
 
 		Player player = Game.getWorld().getPlayer();
 		Position position = player.getComponent(Position.class);
 		SimpleMapView mapView = player.getComponent(SimpleMapView.class);
-		set(position.getX(), position.getY(), mapView.getView());
+		if (mapView != null) {
+			set(position.getX(), position.getY(), mapView.getView());
+		}
 	}
 
 	public void printZone() {
@@ -105,8 +141,7 @@ public class Zone extends BoundedMap<Character> {
 
 		int camX = camera.getLocation().getX();
 		int camY = camera.getLocation().getY();
-		
-		
+
 		int startX = camX - (camera.getWidth() / 2);
 		int startY = camY - (camera.getHeight() / 2);
 		int endX = camX + (camera.getWidth() / 2);
@@ -146,7 +181,7 @@ public class Zone extends BoundedMap<Character> {
 	}
 
 	public ZoneData getData() {
-		return DataManager.getZoneFetcher().forId(id);
+		return DataManager.getZoneFetcher().forID(id);
 	}
 
 	public SingleStackEntityController<GameObject> getGameObjectController() {

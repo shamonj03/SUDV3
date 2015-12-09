@@ -1,7 +1,8 @@
 package com.joe.game.model;
 
-import com.joe.game.io.DataManager;
-import com.joe.game.io.data.ItemData;
+import com.joe.game.control.DataManager;
+import com.joe.game.io.data.ComponentData;
+import com.joe.game.model.component.ItemSettings;
 
 public class ItemContainer {
 	/**
@@ -68,9 +69,10 @@ public class ItemContainer {
 	 * @return false if was unable to add.
 	 */
 	public boolean addItem(int id, int amount) {
-		ItemData data = DataManager.getItemDefinition().forID(id);
+		ComponentData data = DataManager.getItemFetcher().forID(id);
+		ItemSettings settings = data.getComponent(ItemSettings.class);
 
-		if (data.isStackable()) {
+		if (settings.isStackable()) {
 			int slot = getSlot(id);
 
 			if (slot == -1) {
@@ -116,9 +118,10 @@ public class ItemContainer {
 		}
 
 		Item item = items[slot];
-		ItemData data = item.getData();
+		ComponentData data = item.getData();
+		ItemSettings settings = data.getComponent(ItemSettings.class);
 
-		if (data.isStackable()) {
+		if (settings.isStackable()) {
 			int amt = item.getAmount() - amount;
 
 			if (amt <= 0) {

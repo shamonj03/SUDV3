@@ -1,0 +1,18 @@
+{
+	"id": 1,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Arrows"
+		},
+		"com.joe.game.model.component.ItemSettings": {
+			"stackable": true,
+			"equipmentSlot": AMMO
+		},
+		"com.joe.game.model.component.InteractOptions": {
+			"options": [
+				"Equip",
+				"Use"
+			]
+		}
+	}
+}

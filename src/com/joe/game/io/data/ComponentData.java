@@ -1,10 +1,11 @@
 package com.joe.game.io.data;
 
-import java.util.HashMap;
+import com.joe.game.control.ComponentController;
 
-import com.joe.game.model.component.Component;
+public class ComponentData extends ComponentController implements Data {
 
-public class ComponentData extends Data {
+	private int id;
+
 	/**
 	 * Create a new data component with a unique ID.
 	 * 
@@ -12,18 +13,10 @@ public class ComponentData extends Data {
 	 *            The id to set to.
 	 */
 	public ComponentData(int id) {
-		super(id);
+		this.id = id;
 	}
 
-	/**
-	 * The components registered to the data.
-	 */
-	private HashMap<Class<?>, Component> components = new HashMap<>();
-
-	/**
-	 * @return the components of the data class.
-	 */
-	public HashMap<Class<?>, Component> getComponents() {
-		return components;
+	@Override public int getID() {
+		return id;
 	}
 }

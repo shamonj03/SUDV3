@@ -57,10 +57,16 @@ public class Game extends GameThread {
 		world = new World();
 		world.initialize();
 
-		Game.getWorld().draw();
-		Game.getMenuController().draw();
+		world.draw();
+		menuController.draw();
+		
 		
 		startGameThread();
+	}
+	
+	public static void redraw() {
+		world.draw();
+		menuController.draw();
 	}
 
 	/**

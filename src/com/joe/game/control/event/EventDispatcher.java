@@ -2,6 +2,7 @@ package com.joe.game.control.event;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+
 import com.joe.game.model.EventHandler;
 import com.joe.game.model.event.CameraPositionEvent;
 import com.joe.game.model.event.DrawGameScreenEvent;
@@ -10,12 +11,18 @@ import com.joe.game.model.event.Event;
 import com.joe.game.model.event.InputEvent;
 import com.joe.game.model.event.MessageEvent;
 import com.joe.game.model.event.MovementEvent;
+import com.joe.game.model.event.ReplaceNpcEvent;
+import com.joe.game.model.event.ReplaceObjectEvent;
+import com.joe.game.model.event.UnequipItemEvent;
 import com.joe.game.model.event.impl.CameraPositionEventHandler;
 import com.joe.game.model.event.impl.DrawGameScreenEventHandler;
 import com.joe.game.model.event.impl.EquipItemEventHandler;
 import com.joe.game.model.event.impl.InputEventHandler;
 import com.joe.game.model.event.impl.MessageEventHandler;
 import com.joe.game.model.event.impl.MovementEventHandler;
+import com.joe.game.model.event.impl.ReplaceNpcEventHandler;
+import com.joe.game.model.event.impl.ReplaceObjectEventHandler;
+import com.joe.game.model.event.impl.UnequipItemEventHandler;
 
 public class EventDispatcher {
 	/**
@@ -41,6 +48,9 @@ public class EventDispatcher {
 		register(DrawGameScreenEvent.class, new DrawGameScreenEventHandler());
 		register(CameraPositionEvent.class, new CameraPositionEventHandler());
 		register(EquipItemEvent.class, new EquipItemEventHandler());
+		register(UnequipItemEvent.class, new UnequipItemEventHandler());
+		register(ReplaceObjectEvent.class, new ReplaceObjectEventHandler());
+		register(ReplaceNpcEvent.class, new ReplaceNpcEventHandler());
 	}
 
 	/**
@@ -88,13 +98,15 @@ public class EventDispatcher {
 		Class<? extends Event> key = event.getClass();
 
 		if (eventMap.get(key) == null) {
-			System.err.println("No event registered to " + key);
+			// No chain don't bother doing anything.
+			System.err.println("No event chain registered to " + key);
 			return;
 		}
 
 		EventHandlerChain<? super M> chains = (EventHandlerChain<? super M>) eventMap.get(key);
 
 		if (chains == null) {
+			// No chain don't bother doing anything.
 			return;
 		}
 

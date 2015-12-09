@@ -2,7 +2,6 @@ package com.joe.game.control;
 
 import java.util.HashMap;
 import java.util.NoSuchElementException;
-import java.util.function.Consumer;
 
 import com.joe.game.model.component.Component;
 
@@ -18,21 +17,6 @@ public class ComponentController {
 	private HashMap<Class<? extends Component>, Component> components = new HashMap<>();
 
 	/**
-	 * Do something with a component.
-	 * 
-	 * @param componentClass
-	 *            The class name of the component.
-	 * @param consumer
-	 *            Do something if the component exists.
-	 */
-	public <T extends Component> void execute(Class<T> componentClass, Consumer<T> consumer) {
-		if (containsComponent(componentClass)) {
-			T component = getComponent(componentClass);
-			consumer.accept(component);
-		}
-	}
-
-	/**
 	 * Get a component from the parent.
 	 * 
 	 * @param componentClass
@@ -42,7 +26,8 @@ public class ComponentController {
 	 */
 	@SuppressWarnings("unchecked") public <T extends Component> T getComponent(Class<T> componentClass) {
 		if (!containsComponent(componentClass)) {
-			throw new NoSuchElementException("No component registered to " + componentClass + ".");
+			System.err.println("No component registered to " + componentClass + ".");
+			return null;
 		}
 		return (T) components.get(componentClass);
 	}
@@ -82,10 +67,14 @@ public class ComponentController {
 		return components.containsKey(componentClass);
 	}
 
+	public HashMap<Class<? extends Component>, Component> getComponents() {
+		return components;
+	}
+	
 	/**
 	 * @return the components as a string.
 	 */
-	protected String componentsToString() {
+	public String componentsToString() {
 		String s = "";
 
 		for (Component component : components.values()) {

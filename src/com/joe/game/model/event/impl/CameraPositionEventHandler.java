@@ -7,7 +7,9 @@ import com.joe.game.model.World;
 import com.joe.game.model.event.CameraPositionEvent;
 
 public class CameraPositionEventHandler extends EventHandler<CameraPositionEvent> {
-
+	/**
+	 * Move the camera to the new position.
+	 */
 	@Override public void handle(CameraPositionEvent event) {
 		World world = Game.getWorld();
 		Camera camera = world.getCamera();

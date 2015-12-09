@@ -1,11 +1,22 @@
 package com.joe.game.io.data;
 
-public class ZoneData extends Data {
+import java.util.ArrayList;
+
+import com.joe.game.io.data.zone.ZoneItem;
+import com.joe.game.io.data.zone.ZoneNpc;
+
+public class ZoneData implements Data {
 	/**
 	 * Name of the zone.
 	 */
 	private String name;
 
+	private int id;
+	
+	private ArrayList<ZoneNpc> npcs;
+	
+	private ArrayList<ZoneItem> items;
+	
 	/**
 	 * The objects within the zone.
 	 */
@@ -18,7 +29,14 @@ public class ZoneData extends Data {
 	 *            The id of the zone.
 	 */
 	public ZoneData(int id) {
-		super(id);
+		this.id = id;
+	}
+	
+	public void initialize(String name, int width, int height) {
+		this.name = name;
+		objects = new int[height][width];
+		items = new ArrayList<>();
+		npcs = new ArrayList<>();
 	}
 
 	/**
@@ -35,4 +53,15 @@ public class ZoneData extends Data {
 		return objects;
 	}
 
+	public ArrayList<ZoneItem> getItems() {
+		return items;
+	}
+
+	public ArrayList<ZoneNpc> getNpcs() {
+		return npcs;
+	}
+	
+	@Override public int getID() {
+		return id;
+	}
 }

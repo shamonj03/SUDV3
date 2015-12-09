@@ -11,6 +11,8 @@ import com.google.gson.JsonStreamParser;
 import com.joe.game.io.data.Data;
 
 public class OnDemandDataFetcher<T extends Data> {
+	
+	protected static final GsonBuilder builder = new GsonBuilder();
 
 	/**
 	 * Maps of the unique id of the data file to the file object.
@@ -22,6 +24,9 @@ public class OnDemandDataFetcher<T extends Data> {
 	 */
 	protected String folderPath;
 
+	/**
+	 * Class type of the data.
+	 */
 	protected Class<T> type;
 
 	/**
@@ -29,10 +34,13 @@ public class OnDemandDataFetcher<T extends Data> {
 	 * 
 	 * @param folderPath
 	 *            Folder containing the data.
+	 * @param type
+	 *            Class type of the data.
 	 */
 	public OnDemandDataFetcher(String folderPath, Class<T> type) {
 		this.folderPath = folderPath;
 		this.type = type;
+		this.populateFileMap();
 	}
 
 	/**
@@ -43,15 +51,10 @@ public class OnDemandDataFetcher<T extends Data> {
 	 * 
 	 * @return data for the unique id.
 	 */
-	public T forId(int id) {
+	public T forID(int id) {
 		T data = null;
 
-		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
-
-		if (fileMap == null) {
-			populateFileMap();
-		}
 
 		try {
 			File file = fileMap.get(id);

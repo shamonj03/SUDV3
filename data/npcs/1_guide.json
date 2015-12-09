@@ -13,6 +13,9 @@
 		},
 		"com.joe.game.model.component.Health": {
 			"health": 9000
+		},
+		"com.joe.game.model.component.InteractOptions": {
+			options: [ "Talk", "Trade" ]
 		}
 	}
 }

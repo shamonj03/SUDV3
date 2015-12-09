@@ -1,26 +1,7 @@
 package com.joe.game.io.data;
 
-public class Data {
-	/**
-	 * The unique ID of the data class.
-	 */
-	private int id;
+public interface Data {
 
-	/**
-	 * Creates a new Data instance.
-	 * 
-	 * @param id
-	 *            The unique id of the data class.
-	 */
-	public Data(int id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the unique id of the data class.
-	 */
-	public int getId() {
-		return id;
-	}
-
+	public int getID();
+	
 }

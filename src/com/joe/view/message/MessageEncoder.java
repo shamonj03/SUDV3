@@ -16,6 +16,11 @@ public interface MessageEncoder {
 	public void print(String message);
 
 	/**
+	 * Clear the text.
+	 */
+	public void clear();
+
+	/**
 	 * Print a message on a character by character.
 	 * Ends the line when finished.
 	 * 
@@ -62,14 +67,30 @@ public interface MessageEncoder {
 		printLine("");
 	}
 
+	/**
+	 * Print formated text.
+	 * 
+	 * @param text
+	 *            The text to print.
+	 * 
+	 * @param args
+	 *            The format options.
+	 */
 	public default void printFormat(String text, Object... args) {
 		print(String.format(text, args));
 	}
 
+	/**
+	 * Print formated text on a new line.
+	 * 
+	 * @param text
+	 *            The text to print.
+	 * 
+	 * @param args
+	 *            The format options.
+	 */
 	public default void printFormatLine(String text, Object... args) {
 		printFormat(text, args);
 		printLine();
 	}
-	
-	public void clear();
 }

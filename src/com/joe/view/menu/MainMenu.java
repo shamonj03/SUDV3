@@ -19,6 +19,8 @@ public class MainMenu extends GameMenu {
 		addItem("3: Move East");
 		addItem("4: Move West");
 		addItem("5: Interact With Entities");
+		addItem("6: View Inventory");
+		addItem("7: View Equipment");
 	}
 
 	@Override public void handle(InputEvent event) {
@@ -40,6 +42,10 @@ public class MainMenu extends GameMenu {
 				Game.getEventDispatcher().dispatch(new MovementEvent(player, Direction.WEST));
 			} else if (index == 5) {
 				Game.getMenuController().setMenuID(1);
+			} else if (index == 6) {
+				Game.getMenuController().setMenuID(2);
+			} else if (index == 7) {
+				Game.getMenuController().setMenuID(3);
 			}
 		}
 	}

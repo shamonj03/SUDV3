@@ -1,0 +1,16 @@
+{
+	"id": 2,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Key"
+		},
+		"com.joe.game.model.component.ItemSettings": {
+			"stackable": false,
+		},
+		"com.joe.game.model.component.InteractOptions": {
+			"options": [
+				"Examine"
+			]
+		}
+	}
+}

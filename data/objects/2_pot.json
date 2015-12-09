@@ -1,0 +1,20 @@
+{ 
+	"id": 2,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Pot"
+		},
+		"com.joe.game.model.component.WorldSettings": {
+			"interactable": "true",
+			"solid": "false"
+		},
+		"com.joe.game.model.component.SimpleMapView": {
+			"view": 'P'
+		},
+		"com.joe.game.model.component.InteractOptions": {
+			"options": [
+				"Break"
+			]
+		}
+	}
+}

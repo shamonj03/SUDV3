@@ -21,7 +21,9 @@ public class DataComponentAdapter implements JsonDeserializer<ComponentData> {
 		int id = element.getAsJsonObject().get("id").getAsInt();
 
 		ComponentData data = new ComponentData(id);
-		loadComponents(element, data, ctx);
+		
+		JsonElement comps = element.getAsJsonObject().get("components");
+		loadComponents(comps, data, ctx);
 		return data;
 	}
 
@@ -30,20 +32,20 @@ public class DataComponentAdapter implements JsonDeserializer<ComponentData> {
 	 * Data class.
 	 */
 	private void loadComponents(JsonElement e, ComponentData data, JsonDeserializationContext ctx) {
-		JsonElement comps = e.getAsJsonObject().get("components");
 		Gson gson = new Gson();
 		Type stringStringMap = new TypeToken<Map<String, JsonElement>>() {
 		}.getType();
-		Map<String, JsonElement> map = gson.fromJson(comps, stringStringMap);
+		Map<String, JsonElement> map = gson.fromJson(e, stringStringMap);
 
 		for (Entry<String, JsonElement> entry : map.entrySet()) {
-			JsonElement test = comps.getAsJsonObject().get(entry.getKey());
+			JsonElement test = e.getAsJsonObject().get(entry.getKey());
 			try {
 				@SuppressWarnings("unchecked")
 				Class<? extends Component> cz = (Class<? extends Component>) Class.forName(entry.getKey());
 
 				if (cz.isAnnotationPresent(DefinitionComponent.class)) {
-					data.getComponents().put(cz, ctx.deserialize(test, cz));
+					//data.getComponents().put(cz, ctx.deserialize(test, cz));
+					data.register(ctx.deserialize(test, cz));
 				} else {
 					throw new UnsupportedOperationException(cz
 							+ " is not usable here as it is not a definition component.");

@@ -3,7 +3,9 @@ package com.joe.game.control;
 import java.util.HashMap;
 
 import com.joe.view.menu.EntityMenu;
+import com.joe.view.menu.EquipmentMenu;
 import com.joe.view.menu.GameMenu;
+import com.joe.view.menu.InventoryMenu;
 import com.joe.view.menu.MainMenu;
 
 public class MenuDefinition {
@@ -19,6 +21,8 @@ public class MenuDefinition {
 	static {
 		dataMap.put(0, new MainMenu());
 		dataMap.put(1, new EntityMenu());
+		dataMap.put(2, new InventoryMenu());
+		dataMap.put(3, new EquipmentMenu());
 	}
 
 	/**

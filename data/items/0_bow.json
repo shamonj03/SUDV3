@@ -1,0 +1,18 @@
+{
+	"id": 0,
+	"components": {
+		"com.joe.game.model.component.Name": {
+			"name": "Bow"
+		},
+		"com.joe.game.model.component.ItemSettings": {
+			"stackable": false,
+			"equipmentSlot": WEAPON
+		},
+		"com.joe.game.model.component.InteractOptions": {
+			"options": [
+				"Equip",
+				"Use"
+			]
+		}
+	}
+}
